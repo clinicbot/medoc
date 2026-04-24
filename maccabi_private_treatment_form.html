@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>הפניה לטיפול רפואי - טופס הצהרת המבוטח</title>
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: "Arial Hebrew", "David", Arial, Helvetica, sans-serif;
+    background: #fff;
+    color: #000;
+    margin: 0;
+    padding: 20px;
+    direction: rtl;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+    background: #fff;
+    padding: 30px 40px;
+    border: 1px solid #000;
+  }
+
+  h1.doc-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+    margin: 0 0 25px 0;
+  }
+
+  .section-label {
+    text-decoration: underline;
+    font-weight: bold;
+    margin: 18px 0 8px 0;
+    font-size: 14px;
+  }
+
+  /* Tables */
+  table.details {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+  table.details th,
+  table.details td {
+    border: 1px solid #000;
+    padding: 6px 4px;
+    text-align: center;
+    font-size: 13px;
+    vertical-align: middle;
+  }
+  table.details th {
+    font-weight: normal;
+    background: #fff;
+    height: 38px;
+  }
+  table.details td {
+    height: 42px;
+  }
+  table.details input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: 13px;
+    outline: none;
+    direction: rtl;
+    font-family: inherit;
+  }
+
+  /* Section heading bar (dark, like the scanned form) */
+  .section-bar {
+    background: #000;
+    color: #fff;
+    padding: 4px 10px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 20px 0 12px 0;
+    font-size: 14px;
+    text-decoration: underline;
+  }
+  .section-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 18px 0 10px 0;
+  }
+  .section-number {
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  /* Numbered paragraphs */
+  .clause {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+    font-size: 13.5px;
+    line-height: 1.75;
+    text-align: justify;
+  }
+  .clause .num {
+    font-weight: normal;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .clause .body {
+    text-align: justify;
+  }
+
+  .clause.sub {
+    grid-template-columns: 50px 1fr;
+    padding-right: 18px;
+  }
+
+  /* Inline input fields in flowing text */
+  input.inline {
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    font-size: 13.5px;
+    padding: 0 4px;
+    outline: none;
+    direction: rtl;
+    font-family: inherit;
+    min-width: 120px;
+    text-align: center;
+  }
+  input.inline.short { min-width: 90px; }
+  input.inline.long { min-width: 180px; }
+
+  /* Alternate (guardian) version of 2.1 — slightly lighter */
+  .clause.alt .body {
+    color: #333;
+  }
+
+  /* Signature area */
+  .sig-row {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin-top: 35px;
+    gap: 40px;
+  }
+  .sig-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+  .sig-field input {
+    width: 100%;
+    border: none;
+    border-bottom: 1.5px solid #000;
+    background: transparent;
+    text-align: center;
+    padding: 4px 2px;
+    font-size: 13px;
+    outline: none;
+    font-family: inherit;
+    direction: rtl;
+    margin-bottom: 4px;
+  }
+  .sig-label {
+    font-size: 13px;
+    font-weight: normal;
+  }
+
+  .footnote {
+    border-top: 1px solid #000;
+    margin-top: 30px;
+    padding-top: 8px;
+    font-size: 11.5px;
+    line-height: 1.4;
+  }
+
+  .centered {
+    text-align: center;
+    font-weight: bold;
+    margin: 25px 0 10px 0;
+  }
+
+  sup {
+    font-size: 10px;
+    vertical-align: super;
+  }
+
+  /* Toolbar */
+  .toolbar {
+    max-width: 800px;
+    margin: 0 auto 15px auto;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 8px;
+  }
+  .toolbar button {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: inherit;
+  }
+  .toolbar button:hover { background: #333; }
+
+  /* Print */
+  @media print {
+    html, body { margin: 0; padding: 0; }
+    .toolbar { display: none; }
+    .page {
+      border: none;
+      padding: 10mm 12mm;
+      max-width: 100%;
+      margin: 0;
+      page-break-after: always;
+    }
+    .page:last-child { page-break-after: auto; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">הדפס</button>
+  <button onclick="document.querySelectorAll('input').forEach(i=>{if(i.type==='checkbox')i.checked=false; else if(!i.dataset.keep) i.value='';})">נקה</button>
+</div>
+
+<!-- ================= עמוד 1 ================= -->
+<div class="page">
+
+  <h1 class="doc-title">הפניה לטיפול רפואי - טופס הצהרת המבוטח</h1>
+
+  <div class="section-label">פרטי המבוטח במכבי שירותי בריאות (להלן: "מכבי"):</div>
+  <table class="details">
+    <thead>
+      <tr>
+        <th>שם משפחה</th>
+        <th>שם פרטי</th>
+        <th>מס' זהות</th>
+        <th>שנת לידה</th>
+        <th>מספר טלפון</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="text" /></td>
+        <td><input type="text" /></td>
+        <td><input type="text" /></td>
+        <td><input type="text" /></td>
+        <td><input type="text" /></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">פרטי האפוטרופוס החוקי של המבוטח (להלן: "האפוטרופוס"):</div>
+  <table class="details">
+    <thead>
+      <tr>
+        <th>שם משפחה</th>
+        <th>שם פרטי</th>
+        <th>מס' זהות</th>
+        <th>שנת לידה</th>
+        <th>מספר טלפון</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="text" /></td>
+        <td><input type="text" /></td>
+        <td><input type="text" /></td>
+        <td><input type="text" /></td>
+        <td><input type="text" /></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-bar">1. חלק זה ימולא ע"י הרופא המטפל</div>
+
+  <div class="clause">
+    <div class="num">.1.1</div>
+    <div class="body">
+      שם הרופא: <input type="text" class="inline" value="יונתן שפירא" data-keep="1" />, ת.ז <input type="text" class="inline short" value="013651807" data-keep="1" /> (להלן: "הרופא").
+    </div>
+  </div>
+
+  <div class="clause">
+    <div class="num">.1.2</div>
+    <div class="body">
+      בתאריך <input type="text" class="inline short" /> (להלן: "מועד הפנייה") פנה אלי המבוטח<sup>1</sup> שפרטיו רשומים מעלה לצורך קבלת טיפול/ייעוץ רפואי פרטי על ידי (להלן: "הטיפול הפרטי"), והמבוטח מעוניין בטיפול הפרטי כאמור.
+    </div>
+  </div>
+
+  <div class="clause">
+    <div class="num">.1.3</div>
+    <div class="body">
+      הבהרתי למבוטח שפרטיו ר"מ כי הטיפול הינו טיפול פרטי שלא במסגרת מכבי ו/או במסגרת שירותי הבריאות הנוספים המופעלים ע"י מכבי ו/או גופים הקשורים עימה ו/או מי מטעמם (כל אלו ייקראו להלן: "שירותי הבריאות הנוספים"), וכי המבוטח אינו זכאי לכל החזר ו/או השתתפות בגינם ממכבי ו/או משירותי הבריאות הנוספים, וכי מכבי ו/או שירותי הבריאות הנוספים אינם אחראים, במישרין ו/או בעקיפין, לכל נזק ו/או הוצאה וכיו"ב שיגרמו בעקבות הטיפול, והמבוטח מסכים לכך.
+    </div>
+  </div>
+
+  <div class="clause">
+    <div class="num">.1.4</div>
+    <div class="body">
+      עוד הבהרתי למבוטח כי כל סיבוך ו/או נזק באם יגרמו חלילה במסגרת הטיפול ו/או בעקבותיו, יכוסה על ידי באמצעות פוליסה לפרקטיקה פרטית שברשותי.
+    </div>
+  </div>
+
+  <div class="clause">
+    <div class="num">.1.5</div>
+    <div class="body">
+      הנני מצהיר ומתחייב כי אשא בכל אחריות לכל נזק ו/או הוצאה שיגרמו למכבי ו/או לשירותי הבריאות הנוספים עקב הטיפול ו/או תוצאותיו, וכן לכל נזק ו/או הוצאה שיגרמו למכבי ו/או לשירותי הבריאות הנוספים, אם יתברר כי הפרטים שמולאו על ידי במסמך זה אינם נכונים, והנני מתחייב לשפות ו/או לפצות את מכבי ו/או את שירותי הבריאות הנוספים בגין כל נזק ו/או הוצאה כאמור.
+    </div>
+  </div>
+
+  <div class="sig-row">
+    <div class="sig-field">
+      <input type="text" />
+      <div class="sig-label">תאריך</div>
+    </div>
+    <div class="sig-field">
+      <input type="text" />
+      <div class="sig-label">חתימה וחותמת הרופא</div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <sup>1</sup> במקרה של קטין "המבוטח" בסעיף זה הינו האפוטרופוס בשם המבוטח.
+  </div>
+
+</div>
+
+<!-- ================= עמוד 2 ================= -->
+<div class="page">
+
+  <div class="section-bar">2. חלק זה ימולא ע"י המבוטח</div>
+
+  <div class="clause">
+    <div class="num">.2.1</div>
+    <div class="body">
+      אני הח"מ <input type="text" class="inline" /> נושא ת.ז <input type="text" class="inline short" />, מצהיר כי הנני חבר מכבי שירותי בריאות (להלן: "מכבי").
+    </div>
+  </div>
+
+  <div class="clause alt">
+    <div class="num">-</div>
+    <div class="body">
+      אני הח"מ <input type="text" class="inline" /> נושא ת.ז <input type="text" class="inline short" />, מצהיר כי <input type="text" class="inline" /> נושא ת.ז <input type="text" class="inline short" /> (להלן: "המבוטח") הינו חבר מכבי שירותי בריאות (להלן: "מכבי") והינני האפוטרופוס החוקי של המבוטח.
+    </div>
+  </div>
+
+  <div class="clause">
+    <div class="num">.2.2</div>
+    <div class="body">
+      אני מאשר כי פניתי לרופא שפרטיו רשומים בחלקו הראשון של מסמך זה (להלן: "הרופא") וביקשתי כי יעניק לי (למבוטח אם מדובר בקטין) טיפול ו/או ייעוץ פרטי <u>שלא</u> במסגרת מכבי (להלן: "הטיפול" או "הטיפול הפרטי").
+    </div>
+  </div>
+
+  <div class="clause">
+    <div class="num">.2.3</div>
+    <div class="body">
+      הנני מאשר שהובהר לי ע"י הרופא כי:
+    </div>
+  </div>
+
+  <div class="clause sub">
+    <div class="num">.2.3.1</div>
+    <div class="body">
+      הטיפול ניתן על ידי הרופא לבקשתי באופן פרטי ובאחריותו הבלעדית של הרופא, בין אם נכלל ב"סל השירותים" ו/או השירותים הנוספים להם אני (המבוטח אם מדובר בקטין) זכאי ממכבי עפ"י כל דין ובין אם לא.
+    </div>
+  </div>
+
+  <div class="clause sub">
+    <div class="num">.2.3.2</div>
+    <div class="body">
+      מכבי ו/או שירותי הבריאות הנוספים אינם ממנים, באופן מלא או חלקי, את הטיפול הפרטי ומשכך (המבוטח אם מדובר בקטין) לא אהיה זכאי להחזר כספי כלשהו ממכבי ו/או משירותי הבריאות הנוספים בגין כך.
+    </div>
+  </div>
+
+  <div class="clause sub">
+    <div class="num">.2.3.3</div>
+    <div class="body">
+      ייתכן ואני (המבוטח אם מדובר בקטין) זכאי לקבלת הטיפול הפרטי על חשבון מכבי, ואני מוותר בזאת מראש על זכות זו, מתוך ידיעה והסכמה כי מימון הטיפול הפרטי יחול במלואו עלי (או על המבוטח אם מדובר בקטין) בלבד.
+    </div>
+  </div>
+
+  <div class="clause sub">
+    <div class="num">.2.3.4</div>
+    <div class="body">
+      מאחר והטיפול הינו פרטי, אינני זכאי (המבוטח אם מדובר בקטין) לכל החזר ו/או השתתפות בגינו ממכבי ו/או משירותי הבריאות הנוספים, וכי מכבי ו/או שירותי הבריאות הנוספים אינם אחראים, במישרין ו/או בעקיפין, לכל נזק ו/או הוצאה וכיו"ב שיגרמו בעקבות הטיפול.
+    </div>
+  </div>
+
+  <div class="clause sub">
+    <div class="num">.2.3.5</div>
+    <div class="body">
+      כל סיבוך באם ייגרם, חלילה, במסגרת הטיפול ו/או בעקבותיו, יכוסה ע"י הרופא ו/או על ידי (ו/או על ידי המבוטח אם מדובר בקטין) ו/או ע"י בית החולים שבו בוצע הטיפול, אך בכל מקרה לא ע"י מכבי ו/או שירותי הבריאות הנוספים.
+    </div>
+  </div>
+
+  <div class="clause">
+    <div class="num">.2.4</div>
+    <div class="body">
+      הנני מאשר לרופא להעביר טופס זה לידי מכבי ככל שיידרש לכך, ומוותר על כל <b>טענה</b> ו/או תביעה שתהייה לי בקשר למסירת מסמך זה כאמור.
+    </div>
+  </div>
+
+  <div class="clause">
+    <div class="num">.2.5</div>
+    <div class="body">
+      הנני מאשר כי קראתי האמור לעיל, קיבלתי והבנתי את ההסבר הנדרש מפי הרופא, והנני מסכים לכל האמור לעיל.
+    </div>
+  </div>
+
+  <div class="centered">ולראייה באתי על החתום:</div>
+
+  <div class="sig-row">
+    <div class="sig-field">
+      <input type="text" />
+      <div class="sig-label">תאריך</div>
+    </div>
+    <div class="sig-field">
+      <input type="text" />
+      <div class="sig-label">חתימת המבוטח/האפוטרופוס</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
