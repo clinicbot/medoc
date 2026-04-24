@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>דף מידע למטופל ברואקוטן</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: "Arial Hebrew", "David", Arial, Helvetica, sans-serif; background: #fff; color: #000; margin: 0; padding: 20px; direction: rtl; font-size: 13.5px; line-height: 1.65; }
+  .page { max-width: 800px; margin: 0 auto; background: #fff; padding: 30px 40px; border: 1px solid #000; }
+  .header { display: flex; flex-direction: row-reverse; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .header .doctor-info { text-align: left; font-size: 13px; line-height: 1.5; }
+  .header .doctor-info .bold { font-weight: bold; }
+  h1.doc-title { text-align: center; font-size: 19px; font-weight: bold; text-decoration: underline; margin: 10px 0 20px 0; }
+  h2.section { font-size: 15px; font-weight: bold; margin: 18px 0 8px 0; text-decoration: underline; }
+  p.body-text { margin: 10px 0; text-align: justify; }
+  ul.list { padding-right: 22px; margin: 8px 0; }
+  ul.list li { margin-bottom: 6px; text-align: justify; }
+  .field-row { margin: 10px 0; display: flex; flex-direction: row-reverse; flex-wrap: wrap; gap: 10px 20px; align-items: center; }
+  .field-row label { white-space: nowrap; }
+  input.inline { border: none; border-bottom: 1px solid #000; background: transparent; font-size: 13.5px; padding: 2px 4px; outline: none; direction: rtl; font-family: inherit; min-width: 120px; text-align: center; }
+  input.inline.short { min-width: 80px; }
+  .sig-row { display: flex; flex-direction: row-reverse; justify-content: space-between; margin-top: 25px; gap: 20px; flex-wrap: wrap; }
+  .sig-field { display: flex; flex-direction: column; align-items: center; min-width: 180px; flex: 1; }
+  .sig-field input { width: 100%; border: none; border-bottom: 1.5px solid #000; background: transparent; text-align: center; padding: 4px 2px; font-size: 13px; outline: none; font-family: inherit; direction: rtl; margin-bottom: 4px; }
+  .sig-label { font-size: 12.5px; }
+  .doctor-confirm { margin-top: 25px; padding-top: 12px; border-top: 1px solid #666; font-size: 13px; }
+  .consent-text { background: #f5f5f5; border: 1px solid #000; padding: 12px; margin: 15px 0; }
+  .toolbar { max-width: 800px; margin: 0 auto 15px auto; display: flex; flex-direction: row-reverse; gap: 8px; }
+  .toolbar button { background: #000; color: #fff; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; border-radius: 4px; font-family: inherit; }
+  .toolbar button:hover { background: #333; }
+  @media print {
+    html, body { margin: 0; padding: 0; }
+    .toolbar { display: none; }
+    .page { border: none; padding: 10mm 12mm; max-width: 100%; }
+    .consent-text { background: #fff; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">הדפס</button>
+  <button onclick="document.querySelectorAll('input').forEach(i=>{if(i.type==='checkbox')i.checked=false; else i.value='';})">נקה</button>
+</div>
+
+<div class="page">
+
+  <div class="header">
+    <div></div>
+    <div class="doctor-info">
+      <div class="bold">דר' יונתן שפירא</div>
+      <div>מ.ר 30077</div>
+      <div>רחוב שמואל הנגיד 96 רמת השרון</div>
+      <div>050-8996711</div>
+    </div>
+  </div>
+
+  <h1 class="doc-title">דף למטופל ברואקוטן</h1>
+
+  <p class="body-text">רואקוטן היא תרופה – נגזרת של ויטמין A לטיפול באקנה. המינון אותו תקבל/י יקבע ע"י הרופא על פי חומרת האקנה ומשקלך. המינון נע בין 0.5–1 מ"ג/ק"ג/יום וניתן לשנותו בהתאם לטיפול ולתופעות הלוואי. משך הטיפול הממוצע נע בין 4 ל-6 חודשים.</p>
+
+  <h2 class="section">תופעות לוואי</h2>
+  <ul class="list">
+    <li>תופעות הלוואי הן לרוב קלות, הפיכות, תלויות במינון ונעלמות עם הפסקת הטיפול.</li>
+    <li>תופעות הלוואי השכיחות ביותר הן: יובש בפנים, בשפתיים ובריריות (אף, עיניים). ניתן לטפל בעזרת משחות וטיפות מתאימות. מומלץ להימנע משימוש בעדשות מגע במהלך הטיפול.</li>
+    <li>תופעות לוואי שכיחות פחות: כאבי ראש, כאבי פרקים וכאבי שרירים. מומלץ להימנע מפעילות גופנית מאומצת במהלך הטיפול.</li>
+    <li>לעיתים תיתכן החמרה במצב האקנה במשך השבועות הראשונים, תופעה זו חולפת לרוב כעבור 7–10 ימים עם המשך הטיפול.</li>
+  </ul>
+
+  <h2 class="section">בדיקות מעבדה שיש לבצע</h2>
+  <p class="body-text">בדיקות דם ל: תפקודי כבד, שומנים (כולסטרול וטריגליצרידים), CPK.</p>
+
+  <h2 class="section">איסורי שימוש</h2>
+  <ul class="list">
+    <li>התרופה אסורה לשימוש בנשים הרות ומניקות ולאנשים עם אי ספיקת כבד וכליות.</li>
+    <li>רואקוטן הינה תרופה טרטוגנית (עלולה לפגוע בעובר) ולכן בנשים בגיל הפוריות, יש לנקוט באמצעי זהירות מיוחדים.</li>
+    <li>יש לבצע בדיקה לשלילת הריון לפני תחילת הטיפול.</li>
+    <li>יש לנקוט אמצעי מניעה נאותים במשך כל תקופת הטיפול וגם חודש לאחר סיומו.</li>
+    <li>יש לחתום על טופס הסכמה המצורף, בו מוסברת סכנת הטרטוגניות של התרופה ומחויבות לשימוש באמצעי מניעה.</li>
+    <li>התרופה אינה פוגעת בפוריות גברים ונשים.</li>
+  </ul>
+
+  <h2 class="section">אזהרות</h2>
+  <ul class="list">
+    <li>יש להימנע מחשיפה ממושכת לשמש ומומלץ להשתמש בקרם הגנה.</li>
+    <li>אין להשתמש ברואקוטן יחד עם ויטמין A ואנטיביוטיקה ממשפחת הטטרציקלינים.</li>
+    <li>אין לתרום דם במהלך הטיפול וחודש לאחר סיומו.</li>
+    <li>אין להוריד שערות בשעווה, בלייזר או באפילציה במהלך הטיפול ברואקוטן.</li>
+    <li>אם הינך חש/ה בשינוי מהותי במצבך הנפשי, עליך לדווח על כך לרופא המטפל.</li>
+    <li>התרופה רואקוטן נרשמה לך בלבד ואין להעבירה לאחר/ת.</li>
+    <li>יש להיצמד להוראות השימוש ולקחת את המינון שנקבע ולא לשנותו ללא התייעצות עם הרופא המטפל.</li>
+    <li>התרופה צריכה להילקח עם ארוחה או מיד לפניה.</li>
+    <li>יש לשמור על התרופה באריזה סגורה ומוגנת מפני חום ואור מחוץ להישג ידם של ילדים.</li>
+    <li>במקרה של תופעות לוואי, למעט השכיחות ביותר שצוינו לעיל (יובש), יש ליידע את רופא העור המטפל.</li>
+  </ul>
+
+  <h2 class="section">פרטי המטופל</h2>
+  <div class="field-row">
+    <label>שם משפחה:</label><input type="text" class="inline" />
+    <label>שם פרטי:</label><input type="text" class="inline" />
+    <label>ת.ז:</label><input type="text" class="inline short" />
+  </div>
+
+  <div class="consent-text">
+    <b>הצהרה:</b> קראתי את האמור לעיל והבנתי את פרטי הטיפול ברואקוטן, לרבות תופעות הלוואי האפשריות, האיסורים והאזהרות. כל שאלותיי נענו לשביעות רצוני ואני מסכים/ה לקבל את הטיפול כפי שנקבע על ידי הרופא המטפל.
+  </div>
+
+  <div class="sig-row">
+    <div class="sig-field"><input type="text" /><div class="sig-label">תאריך</div></div>
+    <div class="sig-field"><input type="text" /><div class="sig-label">חתימת המטופל/ת</div></div>
+    <div class="sig-field"><input type="text" /><div class="sig-label">חתימת אפוטרופוס</div></div>
+  </div>
+
+  <div class="doctor-confirm">
+    אני מאשר כי הסברתי בעל פה למטופל/ת את כל האמור לעיל בפירוט הדרוש וכי הוא/היא חתם/ה על הסכמה זו בפני לאחר ששוכנעתי כי הבין/ה את הסברי במלואם.
+    <div class="sig-row">
+      <div class="sig-field"><input type="text" value="דר' יונתן שפירא" /><div class="sig-label">שם הרופא</div></div>
+      <div class="sig-field"><input type="text" /><div class="sig-label">חתימת הרופא</div></div>
+      <div class="sig-field"><input type="text" value="30077" /><div class="sig-label">מספר רישיון</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

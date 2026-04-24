@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>טופס הסכמה - טיפול ב-IPL</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Arial Hebrew", "David", Arial, Helvetica, sans-serif;
+    background: #fff; color: #000;
+    margin: 0; padding: 20px;
+    direction: rtl; font-size: 13.5px; line-height: 1.65;
+  }
+  .page { max-width: 800px; margin: 0 auto; background: #fff; padding: 30px 40px; border: 1px solid #000; }
+  .header { display: flex; flex-direction: row-reverse; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .header .doctor-info { text-align: left; font-size: 13px; line-height: 1.5; }
+  .header .doctor-info .bold { font-weight: bold; }
+  h1.doc-title { text-align: center; font-size: 18px; font-weight: bold; text-decoration: underline; margin: 10px 0 5px 0; }
+  .subtitle { text-align: center; font-style: italic; font-size: 14px; margin-bottom: 20px; }
+  ol.main { padding-right: 22px; margin: 10px 0; }
+  ol.main li { margin-bottom: 8px; text-align: justify; }
+  .declaration-section { font-weight: bold; text-decoration: underline; margin-top: 20px; margin-bottom: 8px; }
+  .field-row { margin: 10px 0; display: flex; flex-direction: row-reverse; flex-wrap: wrap; gap: 10px 20px; align-items: center; }
+  .field-row label { white-space: nowrap; }
+  input.inline { border: none; border-bottom: 1px solid #000; background: transparent; font-size: 13.5px; padding: 2px 4px; outline: none; direction: rtl; font-family: inherit; min-width: 120px; text-align: center; }
+  input.inline.short { min-width: 80px; }
+  input.inline.long { min-width: 200px; flex: 1; }
+  .declaration-text { margin: 12px 0; text-align: justify; }
+  .sig-row { display: flex; flex-direction: row-reverse; justify-content: space-between; margin-top: 25px; gap: 20px; flex-wrap: wrap; }
+  .sig-field { display: flex; flex-direction: column; align-items: center; min-width: 180px; flex: 1; }
+  .sig-field input { width: 100%; border: none; border-bottom: 1.5px solid #000; background: transparent; text-align: center; padding: 4px 2px; font-size: 13px; outline: none; font-family: inherit; direction: rtl; margin-bottom: 4px; }
+  .sig-label { font-size: 12.5px; }
+  .doctor-confirm { margin-top: 25px; padding-top: 12px; border-top: 1px solid #666; font-size: 13px; }
+  .toolbar { max-width: 800px; margin: 0 auto 15px auto; display: flex; flex-direction: row-reverse; gap: 8px; }
+  .toolbar button { background: #000; color: #fff; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; border-radius: 4px; font-family: inherit; }
+  .toolbar button:hover { background: #333; }
+  .health-decl { border: 1px solid #000; padding: 10px; margin: 15px 0; }
+  .health-decl-title { font-weight: bold; text-decoration: underline; margin-bottom: 5px; }
+  @media print {
+    html, body { margin: 0; padding: 0; }
+    .toolbar { display: none; }
+    .page { border: none; padding: 10mm 12mm; max-width: 100%; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">הדפס</button>
+  <button onclick="document.querySelectorAll('input').forEach(i=>{if(i.type==='checkbox')i.checked=false; else i.value='';})">נקה</button>
+</div>
+
+<div class="page">
+
+  <div class="header">
+    <div></div>
+    <div class="doctor-info">
+      <div class="bold">דר' יונתן שפירא</div>
+      <div>מ.ר 30077</div>
+      <div>רחוב שמואל הנגיד 96 רמת השרון</div>
+      <div>050-8996711</div>
+    </div>
+  </div>
+
+  <h1 class="doc-title">טופס הסכמה: טיפול בנגעים / כתמים ב-IPL</h1>
+  <div class="subtitle">Treatment with IPL</div>
+
+  <ol class="main">
+    <li>טיפול בכתמים ב-IPL נעשה לצורך שיפור מראה אסתטי או נוחות.</li>
+    <li>קיבלתי הסבר על אופן פעולת המכשיר.</li>
+    <li>קיבלתי הסבר על כך שיש להימנע מחשיפה לשמש במשך שבוע אחרי הטיפול על מנת למנוע אפשרות של יצירת / החמרת כתמים בעור.</li>
+    <li>ידוע לי שאסור לקבל טיפול על עור שזוף.</li>
+    <li>ידוע לי כי אין להתרחץ במים חמים במיוחד ביום הטיפול.</li>
+    <li>קיבלתי הסבר על כך שיש לקבל טיפול נוסף שלושה ימים אחרי הטיפול הראשון.</li>
+    <li>ידוע לי כי הצלחת הטיפול איננה ודאית. תתכן העדר תגובה, תתכן הישנות הכתמים בעתיד. הוסבר לי כי תתכן תגובה חלקית וכי עלות הטיפול בסך 2000 ₪ לאזור כוללת שני טיפולים בלבד. הוסבר לי כי במידה והתגובה תהיה חלקית בלבד, כל ניסיון טיפולי נוסף על אותו איזור יהיה בעלות של 1000 ש"ח. הוסבר לי כי אין צורך להגיע לביקורת לאחר ביצוע שני הטיפולים ובמידה וארצה ביוזמתי להגיע לביקורת להערכת התגובה לטיפול, הביקור יהיה כרוך בעלות של 800 ש"ח.</li>
+    <li>הטיפול מלווה בתחושת צריבה אשר בדרך כלל משתפרת מספר דקות לאחר הטיפול אך תתכן הותרת תחושת צריבה או שריפה גם מספר שעות ואף ימים אחרי הטיפול.</li>
+    <li>לאחר הטיפול תתכן הווצרות תפרחת מחוספסת כהה אשר בדרך כלל מתקלפת ומתפוררת בהמשך. לעיתים מופיעה אדמומיות, צריבה. במידה והאדמומית אינה עוברת תוך זמן קצר או הרגשת הצריבה נמשכת יש לקרר את המקום הצורב, למרוח משחת היקומיצין במידה ואין רגישות למרכיבי החומר ולדווח מיד לרופא המטפל.</li>
+    <li>לאחר ריפוי איזור הצריבה – תהליך שיכול להמשך עד כחודש אך לעיתים נדירות עלול להמשך אף יותר ואף מספר חודשים תתכן הותרת כתם בגוון שונה מגוון העור – כהה יותר או בהיר יותר. כתמים בהירים עלולים להיוותר בעור תקופה ארוכה ואף להישאר לצמיתות. כתמים כהים בדרך כלל מתבהרים עם הזמן אך לעיתים רחוקות עלולים להיוותר זמן ממושך ואף לצמיתות. תופעה זו הינה נדירה.</li>
+    <li>צריבת הנגע או הכתם עלולה להותיר בעור צלקת. אירוע זה אינו שכיח אך עלול לקרות תוך הותרת צלקות בעור לצמיתות.</li>
+    <li>גם במידה ובוצע בעבר טיפול מוצלח ב-IPL – אין הכרח שהטיפול הנוכחי יגיב באותה הצורה, באותה הצלחה ועם אותן תופעות הלוואי.</li>
+    <li>לאחר הצריבה יש למרוח משחה ביאפין פעם ביום למשך שבוע להבטחת ריפוי נאות. בכל מקרה בו מתפתח אודם או רגישות באזור הצריבה יש להודיע מייד לרופא המטפל לצורך קבלת הנחיות להמשך טיפול.</li>
+  </ol>
+
+  <div class="health-decl">
+    <div class="health-decl-title">הצהרת בריאות:</div>
+    <p>הנני מצהיר/ה בזאת שאינני סובל/ת ממחלות עור כלשהן או כל מחלה אחרת המונעת ממני לקבל טיפול ב-IPL. אינני נוטל/ת תרופות המגבירות את רגישות העור לאור (לדוגמא – רואקוטן).</p>
+  </div>
+
+  <div class="declaration-section">פרטי החולה:</div>
+  <div class="field-row">
+    <label>שם משפחה:</label><input type="text" class="inline" />
+    <label>שם פרטי:</label><input type="text" class="inline" />
+    <label>ת.ז:</label><input type="text" class="inline short" />
+  </div>
+
+  <div class="declaration-text">
+    <b>הצהרה:</b> אני מצהיר/ה ומאשר/ת בזאת שקיבלתי הסבר מפורט בעל פה מדר' שפירא יונתן על הטיפול ב-IPL.
+  </div>
+
+  <div class="declaration-section">להלן ה"טיפול העיקרי":</div>
+  <div class="declaration-text">
+    אני מצהיר/ה ומאשר/ת בזאת כי ניתן לי הסבר על התוצאות האפשריות מהטיפול ב-IPL כולל הותרת כתמים וצלקות.
+    הוסברה לי יתרונה של השיטה שנבחרה להסרת הנגע על פני החלופות האפשריות. אני מצהיר/ה ומאשר/ת בזאת כי ניתן לי הסבר על תופעות הלוואי לאחר הטיפול העיקרי לרבות: אודם, נפיחות, כאב ואי נוחות.
+    הובהר לי שתתכן הותרת כתם בהיר או כהה או צלקת באזור הטיפול העלול להיוותר לצמיתות.
+  </div>
+
+  <div class="declaration-text">
+    <b>אני נותן/ת בזאת את הסכמתי לביצוע הטיפול ב-IPL.</b>
+  </div>
+
+  <div class="sig-row">
+    <div class="sig-field"><input type="text" /><div class="sig-label">תאריך</div></div>
+    <div class="sig-field"><input type="text" /><div class="sig-label">חתימת החולה</div></div>
+    <div class="sig-field"><input type="text" /><div class="sig-label">חתימת אפוטרופוס</div></div>
+  </div>
+
+  <div class="doctor-confirm">
+    אני מאשר כי הסברתי בעל פה לחולה/לאפוטרופוס של החולה את כל האמור לעיל בפירוט הדרוש וכי הוא/היא חתם/ה על הסכמה זו בפני לאחר ששוכנעתי כי הבין/ה את הסברי במלואם.
+    <div class="sig-row">
+      <div class="sig-field"><input type="text" value="דר' יונתן שפירא" /><div class="sig-label">שם הרופא</div></div>
+      <div class="sig-field"><input type="text" /><div class="sig-label">חתימת הרופא</div></div>
+      <div class="sig-field"><input type="text" value="30077" /><div class="sig-label">מספר רישיון</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

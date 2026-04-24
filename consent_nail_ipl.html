@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>טופס הסכמה - טיפול פטרת ציפורניים ב-IPL</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: "Arial Hebrew", "David", Arial, Helvetica, sans-serif; background: #fff; color: #000; margin: 0; padding: 20px; direction: rtl; font-size: 13.5px; line-height: 1.65; }
+  .page { max-width: 800px; margin: 0 auto; background: #fff; padding: 30px 40px; border: 1px solid #000; }
+  .header { display: flex; flex-direction: row-reverse; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .header .doctor-info { text-align: left; font-size: 13px; line-height: 1.5; }
+  .header .doctor-info .bold { font-weight: bold; }
+  h1.doc-title { text-align: center; font-size: 18px; font-weight: bold; text-decoration: underline; margin: 10px 0 20px 0; }
+  ol.main { padding-right: 22px; margin: 10px 0; }
+  ol.main li { margin-bottom: 10px; text-align: justify; }
+  ol.main ol { padding-right: 20px; margin-top: 6px; list-style: lower-alpha; }
+  ol.main ol li { margin-bottom: 4px; }
+  table.conditions { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  table.conditions th, table.conditions td { border: 1px solid #000; padding: 6px 8px; font-size: 13px; }
+  table.conditions th { text-align: center; font-weight: bold; width: 60px; }
+  table.conditions td.yesno { text-align: center; }
+  table.conditions td.condition-text { text-align: right; }
+  table.conditions input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; accent-color: #000; }
+  .declaration-section { font-weight: bold; text-decoration: underline; margin-top: 18px; margin-bottom: 8px; }
+  .field-row { margin: 10px 0; display: flex; flex-direction: row-reverse; flex-wrap: wrap; gap: 10px 20px; align-items: center; }
+  .field-row label { white-space: nowrap; }
+  input.inline { border: none; border-bottom: 1px solid #000; background: transparent; font-size: 13.5px; padding: 2px 4px; outline: none; direction: rtl; font-family: inherit; min-width: 120px; text-align: center; }
+  input.inline.short { min-width: 80px; }
+  .declaration-text { margin: 10px 0; text-align: justify; }
+  ul.bullets { padding-right: 20px; }
+  ul.bullets li { margin-bottom: 8px; text-align: justify; }
+  .sig-row { display: flex; flex-direction: row-reverse; justify-content: space-between; margin-top: 25px; gap: 20px; flex-wrap: wrap; }
+  .sig-field { display: flex; flex-direction: column; align-items: center; min-width: 180px; flex: 1; }
+  .sig-field input { width: 100%; border: none; border-bottom: 1.5px solid #000; background: transparent; text-align: center; padding: 4px 2px; font-size: 13px; outline: none; font-family: inherit; direction: rtl; margin-bottom: 4px; }
+  .sig-label { font-size: 12.5px; }
+  .doctor-confirm { margin-top: 25px; padding-top: 12px; border-top: 1px solid #666; font-size: 13px; }
+  .toolbar { max-width: 800px; margin: 0 auto 15px auto; display: flex; flex-direction: row-reverse; gap: 8px; }
+  .toolbar button { background: #000; color: #fff; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; border-radius: 4px; font-family: inherit; }
+  .toolbar button:hover { background: #333; }
+  @media print {
+    html, body { margin: 0; padding: 0; }
+    .toolbar { display: none; }
+    .page { border: none; padding: 10mm 12mm; max-width: 100%; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">הדפס</button>
+  <button onclick="document.querySelectorAll('input').forEach(i=>{if(i.type==='checkbox')i.checked=false; else i.value='';})">נקה</button>
+</div>
+
+<div class="page">
+
+  <div class="header">
+    <div></div>
+    <div class="doctor-info">
+      <div class="bold">דר' יונתן שפירא</div>
+      <div>מ.ר 30077</div>
+      <div>רחוב שמואל הנגיד 96 רמת השרון</div>
+      <div>050-8996711</div>
+    </div>
+  </div>
+
+  <h1 class="doc-title">טופס הסכמה מדעת עבור טיפול פטרת ציפורניים בטכנולוגיית לייזר/IPL</h1>
+
+  <ol class="main">
+    <li>טיפול בפטרת הצפורניים בטכנולוגיית לייזר/IPL נעשה למטרות רפואיות ואסטטיות ומנגנון הפעולה הינו באמצעות חימום הרקמה הנגועה.</li>
+    <li>קיבלתי הסבר על המצבים בהם יש להימנע מטיפול בלייזר/IPL הכוללים גם מחלות המחמירות בחשיפה לשמש או לאור. אנא סמן אם הנך סובל/ת מאחת המחלות או המצבים המפורטים כדלקמן:
+      <table class="conditions">
+        <thead>
+          <tr>
+            <th>כן</th>
+            <th>לא</th>
+            <th style="width:auto">מצב / מחלה</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="yesno"><input type="checkbox"/></td><td class="yesno"><input type="checkbox"/></td><td class="condition-text">מחלות המחמירות בחשיפה לשמש כולל זאבת (לופוס), פורפיריה ואפילפסיה</td></tr>
+          <tr><td class="yesno"><input type="checkbox"/></td><td class="yesno"><input type="checkbox"/></td><td class="condition-text">סרטן עור באיזור המיועד לטיפול</td></tr>
+          <tr><td class="yesno"><input type="checkbox"/></td><td class="yesno"><input type="checkbox"/></td><td class="condition-text">ארועים חוזרים של הרפס באיזור המיועד לטיפול</td></tr>
+          <tr><td class="yesno"><input type="checkbox"/></td><td class="yesno"><input type="checkbox"/></td><td class="condition-text">מחלת לב</td></tr>
+          <tr><td class="yesno"><input type="checkbox"/></td><td class="yesno"><input type="checkbox"/></td><td class="condition-text">כשל חיסוני או נטילת תרופות המדכאות את מערכת החיסון</td></tr>
+          <tr><td class="yesno"><input type="checkbox"/></td><td class="yesno"><input type="checkbox"/></td><td class="condition-text">סכרת</td></tr>
+          <tr><td class="yesno"><input type="checkbox"/></td><td class="yesno"><input type="checkbox"/></td><td class="condition-text">קושי בריפוי פצעים או נטייה לפתח צלקות מסוג קלואיד</td></tr>
+          <tr><td class="yesno"><input type="checkbox"/></td><td class="yesno"><input type="checkbox"/></td><td class="condition-text">פסוריאזיס או מחלת עור אחרת הפוגעת בצפרניים</td></tr>
+          <tr><td class="yesno"><input type="checkbox"/></td><td class="yesno"><input type="checkbox"/></td><td class="condition-text">בעייה בקרישת דם או נטילת תרופות נוגדי קרישה</td></tr>
+          <tr><td class="yesno"><input type="checkbox"/></td><td class="yesno"><input type="checkbox"/></td><td class="condition-text">פעולה כירורגית באיזור המיועד לטיפול ב-3 החודשים האחרונים</td></tr>
+          <tr><td class="yesno"><input type="checkbox"/></td><td class="yesno"><input type="checkbox"/></td><td class="condition-text">הריון</td></tr>
+          <tr><td class="yesno"><input type="checkbox"/></td><td class="yesno"><input type="checkbox"/></td><td class="condition-text">שתל מתכתי, קעקוע או איפור קבוע באיזור המיועד לטיפול</td></tr>
+        </tbody>
+      </table>
+    </li>
+    <li>במידה והנך סובל/ת מהתקפי הרפס באזורי הטיפול יש ליטול טיפול מונע בכדורי זובירקס לפני כל טיפול.</li>
+    <li>תופעות לוואי של הטיפול אינן שכיחות אך יתכנו והן כוללות:
+      <ol>
+        <li>אי נוחות או רגישות באזור הטיפול העלולה להמשך מספר שעות ואף ימים.</li>
+        <li>נפיחות, אודם ושטפי דם באזור הטיפול אשר בדרך כלל חולפים לאחר מספר חודשים.</li>
+        <li>שינוי בגוון נמשים באזור הטיפול.</li>
+        <li>נדיר – כוויה, שלפוחיות והותרת צלקות. הותרת צלקות וכתמים באזור הטיפול הינן נדירות אך במצבים מסוימים עלולות להופיע ואף להיוותר לצמיתות.</li>
+      </ol>
+    </li>
+    <li>אופן הטיפול ומטרותיו הוסברו לי וכל שאלותיי נענו לשביעות רצוני.</li>
+    <li>תוצאת ומספר הטיפולים שונים מאדם לאדם ותלויים במס' רב של משתנים ויתכן ויידרשו מספר טיפולים.</li>
+    <li>הצלחת הטיפול תלויה בהקפדה על פרוטוקול הטיפול הביתי במידה ואתבקש.</li>
+    <li>לא ניתן להבטיח את תוצאות הטיפול. איזור הטיפול יצולם לפני תחילת הטיפול ובמידה ולאחר חצי שנה מתחילת הטיפול לא יחול שינוי לטובה בהשוואה לצילומים יתבצע החזר מלא של עלות הטיפול.</li>
+  </ol>
+
+  <div class="declaration-section">הצהרת המטופל:</div>
+  <div class="field-row">
+    <label>שם פרטי:</label><input type="text" class="inline" />
+    <label>שם משפחה:</label><input type="text" class="inline" />
+    <label>מספר ת.ז:</label><input type="text" class="inline short" />
+  </div>
+
+  <ul class="bullets">
+    <li>הנני מצהיר/ה בזאת שאינני סובל/ת ממחלות עור כלשהן או כל מחלה אחרת המונעת ממני לקבל טיפול ב-IPL. אינני נוטל/ת תרופות המגבירות את רגישות העור לאור (לדוגמא – רואקוטן).</li>
+    <li><b>הצהרה:</b> אני מצהיר/ה ומאשר/ת בזאת שקיבלתי הסבר מפורט בעל פה מ-<input type="text" class="inline" value="דר' יונתן שפירא" /> על הטיפול ב-IPL.</li>
+    <li>אני מצהיר/ה ומאשר/ת בזאת כי ניתן לי הסבר על התוצאות האפשריות מהטיפול ב-IPL כולל הותרת כתמים וצלקות.</li>
+    <li>הוסברה לי יתרונה של השיטה שנבחרה להסרת הנגע על פני החלופות האפשריות. אני מצהיר/ה ומאשר/ת בזאת כי ניתן לי הסבר על תופעות הלוואי לאחר הטיפול העיקרי לרבות: אודם, נפיחות, כאב ואי נוחות. הובהר לי שתתכן הותרת כתם בהיר או כהה או צלקת באזור הטיפול העלול להיוותר לצמיתות.</li>
+  </ul>
+
+  <div class="declaration-text"><b>אני נותן/ת בזאת את הסכמתי לביצוע הטיפול ב-IPL.</b></div>
+
+  <div class="sig-row">
+    <div class="sig-field"><input type="text" /><div class="sig-label">תאריך</div></div>
+    <div class="sig-field"><input type="text" /><div class="sig-label">חתימת המטופל</div></div>
+    <div class="sig-field"><input type="text" /><div class="sig-label">חתימת אפוטרופוס</div></div>
+  </div>
+
+  <div class="doctor-confirm">
+    <b>הצהרת המטפל:</b> אני מאשר כי הסברתי בעל פה לחולה/לאפוטרופוס של החולה את כל האמור לעיל בפירוט הדרוש וכי הוא/היא חתם/ה על הסכמה זו בפני לאחר ששוכנעתי כי הבין/ה את הסברי במלואם.
+    <div class="sig-row">
+      <div class="sig-field"><input type="text" value="דר' יונתן שפירא" /><div class="sig-label">שם המטפל</div></div>
+      <div class="sig-field"><input type="text" /><div class="sig-label">חתימת המטפל</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

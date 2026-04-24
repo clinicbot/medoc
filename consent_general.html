@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>טופס הסכמה - הסרת נגע בעור</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: "Arial Hebrew", "David", Arial, Helvetica, sans-serif; background: #fff; color: #000; margin: 0; padding: 20px; direction: rtl; font-size: 13.5px; line-height: 1.65; }
+  .page { max-width: 800px; margin: 0 auto; background: #fff; padding: 30px 40px; border: 1px solid #000; }
+  .header { display: flex; flex-direction: row-reverse; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .header .doctor-info { text-align: left; font-size: 13px; line-height: 1.5; }
+  .header .doctor-info .bold { font-weight: bold; }
+  h1.doc-title { text-align: center; font-size: 18px; font-weight: bold; text-decoration: underline; margin: 10px 0 5px 0; }
+  .subtitle { text-align: center; font-style: italic; font-size: 14px; margin-bottom: 20px; }
+  p.body-text { margin: 10px 0; text-align: justify; }
+  .declaration-section { font-weight: bold; text-decoration: underline; margin-top: 20px; margin-bottom: 8px; }
+  .field-row { margin: 10px 0; display: flex; flex-direction: row-reverse; flex-wrap: wrap; gap: 10px 20px; align-items: center; }
+  .field-row label { white-space: nowrap; }
+  input.inline { border: none; border-bottom: 1px solid #000; background: transparent; font-size: 13.5px; padding: 2px 4px; outline: none; direction: rtl; font-family: inherit; min-width: 120px; text-align: center; }
+  input.inline.short { min-width: 80px; }
+  input.inline.long { min-width: 200px; flex: 1; }
+  .declaration-text { margin: 12px 0; text-align: justify; }
+  .sig-row { display: flex; flex-direction: row-reverse; justify-content: space-between; margin-top: 25px; gap: 20px; flex-wrap: wrap; }
+  .sig-field { display: flex; flex-direction: column; align-items: center; min-width: 180px; flex: 1; }
+  .sig-field input { width: 100%; border: none; border-bottom: 1.5px solid #000; background: transparent; text-align: center; padding: 4px 2px; font-size: 13px; outline: none; font-family: inherit; direction: rtl; margin-bottom: 4px; }
+  .sig-label { font-size: 12.5px; }
+  .doctor-confirm { margin-top: 25px; padding-top: 12px; border-top: 1px solid #666; font-size: 13px; }
+  .footer-org { margin-top: 25px; padding-top: 10px; border-top: 1px dashed #888; font-size: 11px; text-align: center; color: #555; line-height: 1.5; }
+  .toolbar { max-width: 800px; margin: 0 auto 15px auto; display: flex; flex-direction: row-reverse; gap: 8px; }
+  .toolbar button { background: #000; color: #fff; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; border-radius: 4px; font-family: inherit; }
+  .toolbar button:hover { background: #333; }
+  @media print {
+    html, body { margin: 0; padding: 0; }
+    .toolbar { display: none; }
+    .page { border: none; padding: 10mm 12mm; max-width: 100%; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">הדפס</button>
+  <button onclick="document.querySelectorAll('input').forEach(i=>{if(i.type==='checkbox')i.checked=false; else i.value='';})">נקה</button>
+</div>
+
+<div class="page">
+
+  <div class="header">
+    <div></div>
+    <div class="doctor-info">
+      <div class="bold">דר' יונתן שפירא</div>
+      <div>מ.ר 30077</div>
+      <div>רחוב שמואל הנגיד 96 רמת השרון</div>
+      <div>050-8996711</div>
+    </div>
+  </div>
+
+  <h1 class="doc-title">טופס הסכמה: הסרת נגע בעור</h1>
+  <div class="subtitle">Removal of cutaneous skin lesion</div>
+
+  <p class="body-text">הסרת נגע בעור או ברקמה התת עורית נעשית לצורך אבחנה, טיפול, או לצורך שיפור מראה אסתטי או נוחות. הנגעים יכולים להיות שפירים או בעלי תכונות ממאירות. בחירת השיטה להסרת הנגע תלויה בגודל הנגע, צורת בסיסו, מראהו ומיקומו בגוף, ובאם הנגע חשוד לממאירות. בכל מקרה של הסרת נגע תיוותר צלקת.</p>
+  <p class="body-text">השיטה להסרת הנגע נבחרת בהתאם לסוג הנגע ולהתוויות המקובלות.</p>
+  <p class="body-text">במקרים של כריתה כירורגית, יושפע היקף הכריתה מתכונות הנגע שהוזכרו.
+  במקרים אלה ישוחזר אזור החסר על ידי קירוב שולי החתך ותפירתם (תפירה ראשונית). במקרה של חסר שאינו ניתן לשחזור על ידי תפירה צד לצד, ישוחזר אזור הכריתה על ידי הזזת עור מאזור סמוך (מתלה) או באמצעות השתלת עור שנלקח מאזור אחר (שתל).</p>
+  <p class="body-text">הוצאת התפרים מתבצעת בדרך כלל עד כשבועיים לאחר הכריתה בהתאם לאזור הכריתה. במקרים בהם לא מתבצע שחזור (תפירה) של שולי הכריתה, נותר פצע הניתוח פתוח לריפוי משני שנמשך בדרך כלל מספר שבועות. צורת הצלקת הנותרת תלויה באזור בו בוצעה הכריתה, מבנה העור והתגובה לריפוי פצעים של כל חולה.</p>
+  <p class="body-text">הסרת הנגע מתבצעת בדרך כלל בהרדמה מקומית ולעיתים רחוקות ביותר בהרדמה אזורית או כללית.</p>
+  <p class="body-text">קיימים מקרים בהם יש צורך בכריתה חוזרת של אזור הנגע, בהתאם לתשובה פתולוגית.</p>
+
+  <div class="declaration-section">פרטי החולה:</div>
+  <div class="field-row">
+    <label>שם משפחה:</label><input type="text" class="inline" />
+    <label>שם פרטי:</label><input type="text" class="inline" />
+    <label>ת.ז:</label><input type="text" class="inline short" />
+  </div>
+
+  <div class="declaration-text">
+    <b>הצהרה:</b> אני מצהיר/ה ומאשר/ת בזאת שקיבלתי הסבר מפורט בעל פה מדר' שפירא יונתן על הסרת נגע
+  </div>
+
+  <div class="field-row">
+    <label>באיזור:</label><input type="text" class="inline long" />
+    <label>בשיטה:</label><input type="text" class="inline long" />
+  </div>
+
+  <div class="declaration-section">להלן ה"טיפול העיקרי":</div>
+  <div class="declaration-text">
+    אני מצהיר/ה ומאשר/ת בזאת כי ניתן לי הסבר על התוצאות המקוות דהיינו הסרת הנגע בשלמותו או ברובו וכן על צורת הצלקת. הוסברו לי שיטות הטיפול המקובלות והאפשריות להסרת הנגע וכן הסיכויים והסיכונים הכרוכים בכל אחת משיטות טיפול אלה. הבדיקות והתהליכים הקשורים בהן והתאמתן לנגע הספציפי. כמו כן הוסבר לי יתרונה של השיטה שנבחרה להסרת הנגע על פני החלופות האפשריות. אני מצהיר/ה ומאשר/ת בזאת כי ניתן לי הסבר על תופעות הלוואי לאחר הטיפול העיקרי לרבות: אודם, נפיחות, כאב ואי נוחות.
+  </div>
+  <div class="declaration-text">הובהר לי שבכל מקרה תיוותר צלקת באזור ממנו הוסר הנגע.</div>
+  <div class="declaration-text">
+    כמו כן הוסברו לי הסיבוכים האפשריים במהלך הטיפול העיקרי ולאחריו לרבות: דימום מקומי, זיהום מקומי, פתיחת התפרים, אי קליטת המתלה או השתל, צלקות בולטות, שינויים בפיגמנטציה ופגיעה בעצבים פריפריים. סיבוכים אלה אינם שכיחים.
+  </div>
+
+  <div class="declaration-text">
+    <b>אני נותן/ת בזאת את הסכמתי לביצוע הטיפול העיקרי.</b>
+  </div>
+  <div class="declaration-text">
+    הסכמתי ניתנת בזאת גם לביצוע הרדמה מקומית, לאחר שהוסברו לי הסיכונים והסיבוכים של הרדמה מקומית לרבות תגובה אלרגית בדרגות שונות לחומרי הרדמה.
+    אם יוחלט על ביצוע הטיפול העיקרי בהרדמה כללית, יינתן לי הסבר על ההרדמה על ידי מרדים.
+    אני יודע/ת ומסכים/ה לכך שהטיפול העיקרי וכל ההליכים האחרים יעשו בידי מי שהדבר יוטל עליו בהתאם לנהלים ולהוראות של המוסד וכי לא הובטח לי שיעשו כולם או חלקם בידי אדם מסוים ובלבד שיעשו באחריות המקובלת במוסד בכפוף לחוק.
+  </div>
+
+  <div class="sig-row">
+    <div class="sig-field"><input type="text" /><div class="sig-label">תאריך</div></div>
+    <div class="sig-field"><input type="text" /><div class="sig-label">חתימת החולה</div></div>
+    <div class="sig-field"><input type="text" /><div class="sig-label">חתימת אפוטרופוס</div></div>
+  </div>
+
+  <div class="doctor-confirm">
+    אני מאשר כי הסברתי בעל פה לחולה/לאפוטרופוס של החולה את כל האמור לעיל בפירוט הדרוש וכי הוא/היא חתם/ה על הסכמה זו בפני לאחר ששוכנעתי כי הבין/ה את הסברי במלואם.
+    <div class="sig-row">
+      <div class="sig-field"><input type="text" value="דר' יונתן שפירא" /><div class="sig-label">שם הרופא</div></div>
+      <div class="sig-field"><input type="text" /><div class="sig-label">חתימת הרופא</div></div>
+      <div class="sig-field"><input type="text" value="30077" /><div class="sig-label">מספר רישיון</div></div>
+    </div>
+  </div>
+
+  <div class="footer-org">
+    ההסתדרות הרפואית בישראל &middot; איגוד הכירורגים בישראל &middot; האיגוד הישראלי לכירורגיה פלסטית<br>
+    החברה הדרמטולוגית בישראל &middot; MRM החברה לניהול סיכונים ברפואה בע"מ
+  </div>
+
+</div>
+</body>
+</html>
