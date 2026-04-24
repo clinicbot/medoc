@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Forms & Documents</title>
+<title>Forms &amp; Documents</title>
 <style>
   * { box-sizing: border-box; }
 
@@ -14,12 +14,13 @@
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    direction: rtl;
   }
 
   header {
     background: #fff;
     border-bottom: 1px solid #e1e4e8;
-    padding: 28px 40px;
+    padding: 24px 40px 20px 40px;
   }
   header h1 {
     margin: 0;
@@ -33,19 +34,96 @@
     font-size: 14px;
   }
 
+  /* Controls: search + category chips */
+  .controls {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 22px 24px 0 24px;
+  }
+  .search-wrap {
+    position: relative;
+    margin-bottom: 14px;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 12px 44px 12px 14px;
+    font-size: 15px;
+    border: 1px solid #d0d4da;
+    border-radius: 10px;
+    background: #fff;
+    outline: none;
+    direction: rtl;
+    font-family: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .search-wrap input:focus {
+    border-color: #3955d6;
+    box-shadow: 0 0 0 3px rgba(57,85,214,0.12);
+  }
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 18px;
+    pointer-events: none;
+  }
+  .kbd-hint {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: #999;
+    background: #f0f2f5;
+    padding: 3px 7px;
+    border-radius: 4px;
+    border: 1px solid #dde1e6;
+    font-family: ui-monospace, monospace;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    padding: 7px 14px;
+    background: #fff;
+    border: 1px solid #d0d4da;
+    border-radius: 999px;
+    font-size: 13px;
+    color: #444;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.12s ease;
+    font-family: inherit;
+  }
+  .chip:hover { border-color: #999; }
+  .chip.active {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #1a1a1a;
+  }
+  .chip .count {
+    color: #999;
+    font-size: 11px;
+    margin-right: 4px;
+  }
+  .chip.active .count { color: #bbb; }
+
   main {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 40px 24px;
+    padding: 22px 24px 40px 24px;
   }
 
-  .section-title {
+  .result-info {
     font-size: 13px;
-    font-weight: 600;
     color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin: 0 0 16px 0;
+    margin-bottom: 14px;
+    min-height: 18px;
   }
 
   .grid {
@@ -58,7 +136,7 @@
     background: #fff;
     border: 1px solid #e1e4e8;
     border-radius: 10px;
-    padding: 22px;
+    padding: 20px;
     text-decoration: none;
     color: inherit;
     transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
@@ -72,52 +150,70 @@
     box-shadow: 0 6px 16px rgba(0,0,0,0.08);
     border-color: #cfd4da;
   }
+  .card.hidden { display: none; }
 
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
   .card-icon {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border-radius: 8px;
-    background: #eef2ff;
-    color: #3955d6;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
+    flex-shrink: 0;
+  }
+  .card-cat-tag {
+    font-size: 10.5px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #f0f2f5;
+    color: #666;
+    white-space: nowrap;
   }
 
+  /* Category color coding */
+  .card[data-category="consent"] .card-icon { background: #fef3e6; color: #c56a00; }
+  .card[data-category="insurance"] .card-icon { background: #e6f4fe; color: #0064c5; }
+  .card[data-category="info"] .card-icon { background: #eefbe8; color: #2a7a14; }
+  .card[data-category="external"] .card-icon { background: #f0edff; color: #5030c5; }
+
   .card-title {
-    font-size: 16px;
+    font-size: 15.5px;
     font-weight: 600;
     margin: 0;
     color: #1a1a1a;
+    line-height: 1.3;
   }
   .card-desc {
     font-size: 13px;
     color: #666;
     margin: 0;
-    line-height: 1.45;
+    line-height: 1.5;
     flex-grow: 1;
   }
   .card-meta {
-    font-size: 12px;
-    color: #888;
+    font-size: 11.5px;
+    color: #999;
     margin-top: auto;
   }
 
-  /* Placeholder "add a form" card */
-  .card.placeholder {
-    border-style: dashed;
-    background: transparent;
-    color: #888;
-    align-items: center;
-    justify-content: center;
+  .empty-state {
+    padding: 40px 20px;
     text-align: center;
+    color: #888;
+    background: #fff;
+    border: 1px dashed #d0d4da;
+    border-radius: 10px;
+    display: none;
   }
-  .card.placeholder:hover {
-    transform: none;
-    box-shadow: none;
-  }
+  .empty-state.show { display: block; }
 
   footer {
     text-align: center;
@@ -127,8 +223,9 @@
   }
 
   @media (max-width: 600px) {
-    header { padding: 20px; }
-    main { padding: 24px 16px; }
+    header { padding: 18px 20px; }
+    .controls, main { padding-left: 16px; padding-right: 16px; }
+    .kbd-hint { display: none; }
   }
 </style>
 </head>
@@ -136,129 +233,251 @@
 
 <header>
   <h1>Forms &amp; Documents</h1>
-  <p>Click a card to open a form. You can fill it in and print directly from your browser.</p>
+  <p>חיפוש לפי שם / תיאור, או סינון לפי קטגוריה. לחץ <b>/</b> כדי לקפוץ לחיפוש.</p>
 </header>
+
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search" placeholder="חפש טופס, מסמך, או אתר..." autocomplete="off" />
+    <span class="kbd-hint">/</span>
+  </div>
+
+  <div class="chips" id="chips">
+    <button class="chip active" data-cat="all">הכל <span class="count" id="count-all"></span></button>
+    <button class="chip" data-cat="consent">טפסי הסכמה <span class="count" id="count-consent"></span></button>
+    <button class="chip" data-cat="insurance">ביטוח / קופות חולים <span class="count" id="count-insurance"></span></button>
+    <button class="chip" data-cat="info">דפי מידע למטופל <span class="count" id="count-info"></span></button>
+    <button class="chip" data-cat="external">אתרים חיצוניים <span class="count" id="count-external"></span></button>
+  </div>
+</div>
 
 <main>
 
-  <h2 class="section-title">Available Forms</h2>
+  <div class="result-info" id="result-info"></div>
 
-  <div class="grid">
+  <div class="grid" id="grid">
 
-    <!-- Kligman form card -->
-    <a class="card" href="pigmentation_treatment_form.html">
-      <div class="card-icon">K</div>
-      <h3 class="card-title">Kligman</h3>
-      <p class="card-desc">Pigmentation Treatment Cream Formulations — 12 compounded cream options with checkboxes, catalog numbers, and prescriber fields.</p>
-      <div class="card-meta">Fillable &middot; Printable</div>
-    </a>
+    <!-- === טפסי הסכמה === -->
 
-    <!-- Maccabi Private Treatment form card -->
-    <a class="card" href="maccabi_private_treatment_form.html">
-      <div class="card-icon">מ</div>
-      <h3 class="card-title">הצהרת מבוטח - מכבי</h3>
-      <p class="card-desc">הפניה לטיפול רפואי פרטי — טופס הצהרת מבוטח מכבי שירותי בריאות, כולל פרטי הרופא, המבוטח והאפוטרופוס.</p>
-      <div class="card-meta">Fillable &middot; Printable &middot; 2 pages</div>
-    </a>
-
-    <!-- Consent: IPL -->
-    <a class="card" href="consent_ipl.html">
-      <div class="card-icon">I</div>
+    <a class="card" data-category="consent" href="consent_ipl.html">
+      <div class="card-top">
+        <div class="card-icon">IPL</div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
       <h3 class="card-title">טופס הסכמה - IPL</h3>
       <p class="card-desc">הסכמה לטיפול בנגעים / כתמים ב-IPL, כולל תופעות לוואי, עלויות ושדות חתימה.</p>
-      <div class="card-meta">Fillable &middot; Printable</div>
+      <div class="card-meta">Fillable · Printable</div>
     </a>
 
-    <!-- Consent: Electrodesiccation + Curettage -->
-    <a class="card" href="consent_edc.html">
-      <div class="card-icon">E+C</div>
+    <a class="card" data-category="consent" href="consent_edc.html">
+      <div class="card-top">
+        <div class="card-icon">E+C</div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
       <h3 class="card-title">אלקטרודסיקציה + קורטאג'</h3>
       <p class="card-desc">הסכמה לטיפול בנגעים במחט חשמלית בשילוב כפית כירורגית.</p>
-      <div class="card-meta">Fillable &middot; Printable</div>
+      <div class="card-meta">Fillable · Printable</div>
     </a>
 
-    <!-- Consent: Electrodesiccation only -->
-    <a class="card" href="consent_electrodesiccation.html">
-      <div class="card-icon">E</div>
+    <a class="card" data-category="consent" href="consent_electrodesiccation.html">
+      <div class="card-top">
+        <div class="card-icon">E</div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
       <h3 class="card-title">אלקטרודסיקציה</h3>
       <p class="card-desc">הסכמה לטיפול בנגעים / כתמים במחט חשמלית.</p>
-      <div class="card-meta">Fillable &middot; Printable</div>
+      <div class="card-meta">Fillable · Printable</div>
     </a>
 
-    <!-- Consent: Liquid Nitrogen -->
-    <a class="card" href="consent_nitrogen.html">
-      <div class="card-icon">N₂</div>
+    <a class="card" data-category="consent" href="consent_nitrogen.html">
+      <div class="card-top">
+        <div class="card-icon">N₂</div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
       <h3 class="card-title">חנקן נוזלי</h3>
       <p class="card-desc">הסכמה לטיפול בנגעים / כתמים בחנקן נוזלי (קריותרפיה).</p>
-      <div class="card-meta">Fillable &middot; Printable</div>
+      <div class="card-meta">Fillable · Printable</div>
     </a>
 
-    <!-- Consent: Curettage -->
-    <a class="card" href="consent_curettage.html">
-      <div class="card-icon">C</div>
+    <a class="card" data-category="consent" href="consent_curettage.html">
+      <div class="card-top">
+        <div class="card-icon">C</div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
       <h3 class="card-title">קורטאג'</h3>
       <p class="card-desc">הסכמה לטיפול בנגעים / כתמים בכפית כירורגית (curettage).</p>
-      <div class="card-meta">Fillable &middot; Printable</div>
+      <div class="card-meta">Fillable · Printable</div>
     </a>
 
-    <!-- Consent: General lesion removal -->
-    <a class="card" href="consent_general.html">
-      <div class="card-icon">G</div>
+    <a class="card" data-category="consent" href="consent_general.html">
+      <div class="card-top">
+        <div class="card-icon">G</div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
       <h3 class="card-title">הסכמה כללית - הסרת נגע</h3>
       <p class="card-desc">טופס הסכמה כללי להסרת נגע בעור, כולל כריתה כירורגית, הרדמה ותפרים.</p>
-      <div class="card-meta">Fillable &middot; Printable</div>
+      <div class="card-meta">Fillable · Printable</div>
     </a>
 
-    <!-- Consent: Nail IPL -->
-    <a class="card" href="consent_nail_ipl.html">
-      <div class="card-icon">💅</div>
+    <a class="card" data-category="consent" href="consent_nail_ipl.html">
+      <div class="card-top">
+        <div class="card-icon">💅</div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
       <h3 class="card-title">טיפול בצפרניים IPL</h3>
       <p class="card-desc">הסכמה לטיפול פטרת ציפורניים בטכנולוגיית לייזר/IPL, כולל טבלת מצבי בריאות.</p>
-      <div class="card-meta">Fillable &middot; Printable</div>
+      <div class="card-meta">Fillable · Printable</div>
     </a>
 
-    <!-- Roaccutane info -->
-    <a class="card" href="info_roaccutane.html">
-      <div class="card-icon">R</div>
+    <!-- === ביטוח / קופות חולים === -->
+
+    <a class="card" data-category="insurance" href="maccabi_private_treatment_form.html">
+      <div class="card-top">
+        <div class="card-icon">מ</div>
+        <div class="card-cat-tag">ביטוח</div>
+      </div>
+      <h3 class="card-title">הצהרת מבוטח - מכבי</h3>
+      <p class="card-desc">הפניה לטיפול רפואי פרטי — טופס הצהרת מבוטח מכבי שירותי בריאות, כולל פרטי הרופא, המבוטח והאפוטרופוס.</p>
+      <div class="card-meta">Fillable · Printable · 2 pages</div>
+    </a>
+
+    <!-- === דפי מידע למטופל === -->
+
+    <a class="card" data-category="info" href="pigmentation_treatment_form.html">
+      <div class="card-top">
+        <div class="card-icon">K</div>
+        <div class="card-cat-tag">מידע למטופל</div>
+      </div>
+      <h3 class="card-title">Kligman — פורמולציות לפיגמנטציה</h3>
+      <p class="card-desc">טופס מרשם ל-12 פורמולציות קרם לטיפול בפיגמנטציה, כולל תיבות סימון ומספרי קטלוג.</p>
+      <div class="card-meta">Fillable · Printable</div>
+    </a>
+
+    <a class="card" data-category="info" href="info_roaccutane.html">
+      <div class="card-top">
+        <div class="card-icon">R</div>
+        <div class="card-cat-tag">מידע למטופל</div>
+      </div>
       <h3 class="card-title">רואקוטן - דף למטופל</h3>
       <p class="card-desc">דף מידע והסכמה לטיפול ברואקוטן — תופעות לוואי, בדיקות, אזהרות וחתימת מטופל.</p>
-      <div class="card-meta">Fillable &middot; Printable</div>
+      <div class="card-meta">Fillable · Printable</div>
     </a>
 
-    <!-- Placeholder to show how future forms will look -->
-    <div class="card placeholder">
-      <div>+ Add another form</div>
-    </div>
+    <!-- === אתרים חיצוניים === -->
+
+    <a class="card" data-category="external" href="https://shapiro-ai-links.netlify.app/" target="_blank" rel="noopener">
+      <div class="card-top">
+        <div class="card-icon">S</div>
+        <div class="card-cat-tag">אתר חיצוני</div>
+      </div>
+      <h3 class="card-title">Shapiro AI Links</h3>
+      <p class="card-desc">Collection of AI tools and resources.</p>
+      <div class="card-meta">shapiro-ai-links.netlify.app ↗</div>
+    </a>
+
+    <a class="card" data-category="external" href="https://jshapiro.co.il" target="_blank" rel="noopener">
+      <div class="card-top">
+        <div class="card-icon">J</div>
+        <div class="card-cat-tag">אתר חיצוני</div>
+      </div>
+      <h3 class="card-title">jshapiro.co.il</h3>
+      <p class="card-desc">My personal website.</p>
+      <div class="card-meta">jshapiro.co.il ↗</div>
+    </a>
+
+    <a class="card" data-category="external" href="https://github.com/clinicbot" target="_blank" rel="noopener">
+      <div class="card-top">
+        <div class="card-icon">Git</div>
+        <div class="card-cat-tag">אתר חיצוני</div>
+      </div>
+      <h3 class="card-title">GitHub — clinicbot</h3>
+      <p class="card-desc">My GitHub profile and repositories.</p>
+      <div class="card-meta">github.com/clinicbot ↗</div>
+    </a>
 
   </div>
 
-  <h2 class="section-title" style="margin-top: 40px;">My Other Sites</h2>
-
-  <div class="grid">
-
-    <!-- Shapiro AI Links -->
-    <a class="card" href="https://shapiro-ai-links.netlify.app/" target="_blank" rel="noopener">
-      <div class="card-icon">S</div>
-      <h3 class="card-title">Shapiro AI Links</h3>
-      <p class="card-desc">Collection of AI tools and resources.</p>
-      <div class="card-meta">External &middot; shapiro-ai-links.netlify.app</div>
-    </a>
-
-    <!-- jshapiro.co.il -->
-    <a class="card" href="https://jshapiro.co.il" target="_blank" rel="noopener">
-      <div class="card-icon">J</div>
-      <h3 class="card-title">jshapiro.co.il</h3>
-      <p class="card-desc">My personal website.</p>
-      <div class="card-meta">External &middot; jshapiro.co.il</div>
-    </a>
-
+  <div class="empty-state" id="empty-state">
+    לא נמצאו תוצאות. נסה מילת חיפוש אחרת או קטגוריה אחרת.
   </div>
 
 </main>
 
 <footer>
-  &copy; 2026 &middot; Forms Hub
+  &copy; 2026 · דר' יונתן שפירא
 </footer>
+
+<script>
+(function () {
+  const search    = document.getElementById('search');
+  const chipsWrap = document.getElementById('chips');
+  const grid      = document.getElementById('grid');
+  const cards     = Array.from(grid.querySelectorAll('.card'));
+  const info      = document.getElementById('result-info');
+  const empty     = document.getElementById('empty-state');
+
+  // Count items per category
+  const counts = { all: cards.length, consent: 0, insurance: 0, info: 0, external: 0 };
+  cards.forEach(c => {
+    const cat = c.dataset.category;
+    if (counts[cat] !== undefined) counts[cat]++;
+  });
+  Object.keys(counts).forEach(k => {
+    const el = document.getElementById('count-' + k);
+    if (el) el.textContent = counts[k];
+  });
+
+  let activeCat = 'all';
+
+  function applyFilter() {
+    const q = search.value.trim().toLowerCase();
+    let shown = 0;
+
+    cards.forEach(card => {
+      const catMatch = activeCat === 'all' || card.dataset.category === activeCat;
+      const text = (card.textContent || '').toLowerCase();
+      const searchMatch = !q || text.includes(q);
+      const visible = catMatch && searchMatch;
+      card.classList.toggle('hidden', !visible);
+      if (visible) shown++;
+    });
+
+    empty.classList.toggle('show', shown === 0);
+    if (q || activeCat !== 'all') {
+      info.textContent = `מציג ${shown} מתוך ${cards.length} פריטים`;
+    } else {
+      info.textContent = '';
+    }
+  }
+
+  search.addEventListener('input', applyFilter);
+
+  chipsWrap.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    chipsWrap.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeCat = chip.dataset.cat;
+    applyFilter();
+  });
+
+  // Keyboard shortcut: "/" focuses the search input
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement !== search) {
+      e.preventDefault();
+      search.focus();
+      search.select();
+    } else if (e.key === 'Escape' && document.activeElement === search) {
+      search.value = '';
+      applyFilter();
+      search.blur();
+    }
+  });
+
+  applyFilter();
+})();
+</script>
 
 </body>
 </html>
