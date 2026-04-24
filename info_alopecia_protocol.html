@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treatment Protocol for Androgenetic Alopecia</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif;
+    background: #fff;
+    color: #1a1a1a;
+    margin: 0;
+    padding: 20px;
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px 40px;
+    border: 1px solid #000;
+  }
+  .doc-header {
+    border-bottom: 2px solid #000;
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+  }
+  .doc-header h1 {
+    margin: 0 0 6px 0;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  .doc-header .authors {
+    font-size: 13px;
+    color: #555;
+    font-style: italic;
+  }
+
+  h2.section-title {
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 20px;
+    padding: 10px 14px;
+    margin: 30px 0 16px 0;
+    border-radius: 4px;
+  }
+  h3.subsection {
+    font-size: 16px;
+    color: #1a1a1a;
+    margin: 22px 0 8px 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ccc;
+  }
+  h4 {
+    font-size: 14px;
+    color: #333;
+    margin: 14px 0 6px 0;
+  }
+
+  .section-layout {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    gap: 25px;
+    align-items: start;
+    margin-bottom: 15px;
+  }
+  @media (max-width: 700px) {
+    .section-layout { grid-template-columns: 1fr; }
+    .section-layout .illustration { order: -1; max-width: 180px; margin: 0 auto; }
+  }
+  .illustration {
+    background: #f4f6f8;
+    border: 1px solid #e0e3e7;
+    border-radius: 10px;
+    padding: 8px;
+    text-align: center;
+  }
+  .illustration img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    display: block;
+  }
+  .illustration .caption {
+    font-size: 11px;
+    color: #777;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  ol, ul { padding-right: 22px; padding-left: 22px; margin: 8px 0; }
+  li { margin-bottom: 6px; }
+
+  .step {
+    background: #fafbfc;
+    border: 1px solid #e6e9ed;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+  }
+  .step-number {
+    display: inline-block;
+    background: #3955d6;
+    color: #fff;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 26px;
+    font-weight: bold;
+    font-size: 13px;
+    margin-left: 8px;
+    margin-right: 0;
+  }
+  .step-title {
+    font-weight: 600;
+    font-size: 15.5px;
+    display: inline-block;
+  }
+
+  .callout {
+    background: #fff8e1;
+    border-right: 4px solid #f5b400;
+    padding: 10px 14px;
+    margin: 14px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+  }
+  .callout.danger {
+    background: #ffeaea;
+    border-right-color: #d93a3a;
+  }
+  .callout b { color: #000; }
+
+  .section-intro {
+    color: #555;
+    font-size: 13.5px;
+    margin-bottom: 10px;
+  }
+
+  .toolbar {
+    max-width: 900px;
+    margin: 0 auto 15px auto;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .toolbar button {
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: inherit;
+  }
+  .toolbar button:hover { background: #3955d6; }
+
+  a.back-link {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #3955d6;
+    text-decoration: none;
+    font-size: 13px;
+  }
+  a.back-link:hover { text-decoration: underline; }
+
+  @media print {
+    html, body { margin: 0; padding: 0; }
+    .toolbar, .back-link { display: none; }
+    .page { border: none; padding: 10mm 12mm; max-width: 100%; }
+    .step { break-inside: avoid; }
+    h2.section-title { break-after: avoid; }
+    @page { size: A4; margin: 15mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">Print</button>
+</div>
+
+<div class="page">
+
+  <a class="back-link" href="index.html">← Back to hub</a>
+
+  <div class="doc-header">
+    <h1>Treatment Protocols for Androgenetic Alopecia</h1>
+    <div class="authors">Dr. Ana Lyakhovitsky &amp; Dr. Jonathan Shapiro</div>
+  </div>
+
+  <!-- ========== MALE AGA ========== -->
+
+  <h2 class="section-title">Male Androgenetic Alopecia (AGA)</h2>
+
+  <div class="section-layout">
+    <div>
+      <p class="section-intro">Stepwise treatment protocol for men, beginning with topical therapy and escalating as needed.</p>
+
+      <div class="step">
+        <div><span class="step-number">1</span><span class="step-title">Topical Minoxidil 5%</span></div>
+        <ul>
+          <li><b>Application:</b> Apply twice daily to the scalp.</li>
+          <li><b>Duration:</b> Continue for at least 6 months.</li>
+          <li><b>Evaluation:</b> If no improvement after 6 months, proceed to systemic therapy.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <div><span class="step-number">2</span><span class="step-title">Systemic Therapy — Finasteride</span></div>
+        <ul>
+          <li><b>Finasteride (Propecia) 1 mg daily.</b></li>
+          <li><b>Duration:</b> Trial for one year.</li>
+          <li><b>Long-term:</b> If effective, continue indefinitely.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <div><span class="step-number">3</span><span class="step-title">Escalation — Oral Minoxidil</span></div>
+        <ul>
+          <li><b>Initial dose:</b> 2.5 mg per day.</li>
+          <li><b>Prescription:</b> 90 capsules.</li>
+          <li><b>Procurement options:</b>
+            <ul>
+              <li>Prescription filled at regular pharmacies.</li>
+              <li>Order via "Tabechnik" using form "29ג" from "Shor Tabechnik".</li>
+            </ul>
+          </li>
+          <li><b>Transition from topical to oral:</b> Gradually reduce topical minoxidil from twice daily to 2–3 times weekly over 2 months while initiating oral minoxidil. Discontinue topical minoxidil after 3 months.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <div><span class="step-number">4</span><span class="step-title">Monitoring &amp; Adjustments</span></div>
+        <ul>
+          <li><b>Initial follow-up:</b> CBC and liver function tests after 2 months.</li>
+          <li><b>Dose adjustment:</b> If no improvement after 3 months at 2.5 mg, increase to 5 mg daily for another 6 months.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <div><span class="step-number">5</span><span class="step-title">Alternative Adjustments to Systemic Therapy</span></div>
+        <ul>
+          <li>If finasteride is insufficient:
+            <ul>
+              <li>Substitute finasteride with dutasteride (Avodart) 0.5 mg on two non-consecutive days (e.g. Monday &amp; Thursday).</li>
+              <li>Continue finasteride 1 mg on the other days (Tue, Wed, Fri, Sat, Sun).</li>
+              <li>Reassess after 6 months; consider daily dutasteride if no improvement.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="callout danger">
+        <b>Contraindications &amp; Cautions (Oral Minoxidil):</b>
+        <ul style="margin: 4px 0 0 0;">
+          <li><b>Migraines:</b> oral minoxidil may exacerbate.</li>
+          <li><b>Hypotension:</b> patients with low blood pressure should not take oral minoxidil.</li>
+        </ul>
+      </div>
+
+      <div class="callout">
+        <b>Conclusion:</b>
+        <ul style="margin: 4px 0 0 0;">
+          <li><b>Discontinuation:</b> If no improvement after an extended period on the escalated dose, stop the medication.</li>
+          <li><b>Long-term success:</b> If effective, continue indefinitely.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="illustration">
+      <img src="aga.jpg" alt="Illustration of male androgenetic alopecia" onerror="this.style.display='none';this.nextElementSibling.textContent='Add aga.jpg to this folder';" />
+      <div class="caption">Male pattern hair loss</div>
+    </div>
+  </div>
+
+  <!-- ========== FEMALE PATTERN ALOPECIA ========== -->
+
+  <h2 class="section-title">Female Pattern Alopecia</h2>
+
+  <div class="section-layout">
+    <div>
+      <p class="section-intro">Stepwise protocol for women. Dosing differs from the male protocol and several systemic options are available beyond minoxidil.</p>
+
+      <div class="step">
+        <div><span class="step-number">1</span><span class="step-title">Topical Minoxidil 5% (younger women)</span></div>
+        <ul>
+          <li><b>For children and women over 70:</b> Use 2% solution once daily.</li>
+          <li><b>Application:</b> Once daily to the scalp.</li>
+          <li><b>Duration:</b> At least 6 months.</li>
+          <li><b>Evaluation:</b> If no improvement after 6 months, add systemic therapy.</li>
+          <li><b>Contraindication:</b> Do not prescribe if the patient has low blood pressure.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <div><span class="step-number">2</span><span class="step-title">Systemic — Oral Minoxidil</span></div>
+        <ul>
+          <li><b>Initial dose:</b> 0.75 mg per day.</li>
+          <li><b>Dose adjustment:</b> Increase by 0.5 mg every 3 months if not effective, up to a maximum of 2.5 mg per day.</li>
+          <li><b>Procurement:</b>
+            <ul>
+              <li>Prescription filled at regular pharmacies.</li>
+              <li>Order via "Tabechnik" using form "29ג" from "Shor Tabechnik".</li>
+            </ul>
+          </li>
+          <li><b>Transition from topical to oral:</b> Gradually reduce topical minoxidil from once daily to 2–3 times weekly over 2 months while initiating oral minoxidil. Discontinue topical minoxidil after 3 months.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <div><span class="step-number">3</span><span class="step-title">Monitoring</span></div>
+        <ul>
+          <li><b>Initial follow-up:</b> CBC and liver function tests after 2 months.</li>
+        </ul>
+      </div>
+
+      <h3 class="subsection">Alternative Systemic Options</h3>
+
+      <div class="step">
+        <div><span class="step-title">Aldactone (Spironolactone)</span></div>
+        <ul>
+          <li><b>Initial dose:</b> 25 mg per day.</li>
+          <li><b>Dose adjustment:</b> Increase by 25 mg per month until a maximum of 100 mg per day.</li>
+          <li><b>Special considerations:</b> Particularly effective for women with hirsutism. Ensure no personal or family history of breast cancer.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <div><span class="step-title">Dutasteride</span></div>
+        <ul>
+          <li><b>For postmenopausal women:</b> Start with 0.5 mg twice a week; may increase to daily.</li>
+          <li><b>Cancer screening:</b> Annual breast cancer screening is recommended.</li>
+        </ul>
+      </div>
+
+      <div class="callout danger">
+        <b>Contraindications &amp; Cautions (Oral Minoxidil):</b>
+        <ul style="margin: 4px 0 0 0;">
+          <li><b>Migraines:</b> oral minoxidil may exacerbate.</li>
+          <li><b>Hypotension:</b> patients with low blood pressure should not take oral minoxidil.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="illustration">
+      <img src="female.jpg" alt="Illustration of female pattern hair loss" onerror="this.style.display='none';this.nextElementSibling.textContent='Add female.jpg to this folder';" />
+      <div class="caption">Female pattern hair loss</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
