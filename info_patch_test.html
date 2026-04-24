@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תבחיני מטלית - TRUE-TEST</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Arial Hebrew", "David", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: #f5f6f8;
+    color: #1a1a1a;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px 40px;
+    border: 1px solid #000;
+  }
+  .toolbar {
+    max-width: 900px;
+    margin: 15px auto;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 8px;
+    padding: 0 10px;
+  }
+  .toolbar button {
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: inherit;
+  }
+  .toolbar button:hover { background: #3955d6; }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: #3955d6;
+    text-decoration: none;
+    font-size: 13px;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  .doc-header {
+    border-bottom: 2px solid #000;
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+  }
+  .doc-header h1 { margin: 0 0 6px 0; font-size: 24px; font-weight: bold; }
+  .doc-header .subtitle { font-size: 14px; color: #555; font-style: italic; }
+
+  .intro {
+    background: #f8f9fb;
+    border-right: 4px solid #3955d6;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .intro b { color: #000; }
+
+  /* Search */
+  .search-wrap {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 14px 0;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #e0e3e7;
+    z-index: 10;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 11px 40px 11px 14px;
+    font-size: 15px;
+    border: 1px solid #d0d4da;
+    border-radius: 8px;
+    outline: none;
+    direction: rtl;
+    font-family: inherit;
+  }
+  .search-wrap input:focus { border-color: #3955d6; box-shadow: 0 0 0 3px rgba(57,85,214,0.12); }
+  .search-wrap .icon {
+    position: absolute;
+    top: 50%; right: 14px;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
+  }
+  .search-wrap { position: relative; }
+  .result-count {
+    font-size: 12.5px;
+    color: #888;
+    margin: 6px 0 0 0;
+  }
+
+  /* Allergen cards */
+  .allergen {
+    background: #fff;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+    transition: box-shadow 0.15s;
+  }
+  .allergen:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .allergen.hidden { display: none; }
+
+  .allergen-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .allergen-num {
+    background: #1a1a1a;
+    color: #fff;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .allergen-title {
+    font-size: 17px;
+    font-weight: bold;
+    margin: 0;
+  }
+  .allergen-title-en {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+    font-weight: normal;
+    margin-right: 8px;
+  }
+
+  .section-label {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 10px;
+    margin-bottom: 4px;
+    color: #1a1a1a;
+    font-size: 14px;
+  }
+  .section-content {
+    font-size: 14px;
+    text-align: justify;
+    color: #333;
+  }
+
+  .empty-state {
+    padding: 30px 20px;
+    text-align: center;
+    color: #888;
+    background: #fff;
+    border: 1px dashed #d0d4da;
+    border-radius: 8px;
+    display: none;
+  }
+  .empty-state.show { display: block; }
+
+  @media print {
+    html, body { margin: 0; padding: 0; background: #fff; }
+    .toolbar, .back-link, .search-wrap, .result-count { display: none; }
+    .page { border: none; padding: 10mm 12mm; max-width: 100%; margin: 0; }
+    .allergen { break-inside: avoid; border: 1px solid #888; box-shadow: none; }
+    @page { size: A4; margin: 10mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">הדפס</button>
+</div>
+
+<div class="page">
+
+  <a class="back-link" href="index.html">← חזרה לעמוד הבית</a>
+
+  <div class="doc-header">
+    <h1>תבחיני מטלית — TRUE-TEST™</h1>
+    <div class="subtitle">רשימת החומרים הנבדקים בתבחין המטלית והסבר להימנעות</div>
+  </div>
+
+  <div class="intro">
+    <b>מה זה תבחין מטלית?</b>
+    תבחין מטלית (Patch Test) נועד לאבחון אלרגיה במגע — דלקת עור שנגרמת כתוצאה ממגע בחומר מסוים. התבחין נעשה על ידי הנחת מדבקות המכילות חומרים שונים על גב המטופל למשך 48 שעות, ובדיקת תגובת העור לאחר מכן. מסמך זה מתאר את 24 החומרים הנבדקים בסדרת <b>TRUE-TEST™</b>, איפה כל אחד מצוי, וכיצד להימנע ממגע איתו אם זוהתה אלרגיה.
+  </div>
+
+  <div class="search-wrap">
+    <span class="icon">🔍</span>
+    <input type="text" id="search" placeholder="חפש חומר / מקום / מילת מפתח (למשל: 'גומי', 'קרם', 'תכשיטים')..." autocomplete="off" />
+    <div class="result-count" id="result-count"></div>
+  </div>
+
+  <div id="allergens">
+
+    <!-- 1 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">1</div>
+        <h2 class="allergen-title">מתכת ניקל ומלחי ניקל<span class="allergen-title-en">Nickel</span></h2>
+      </div>
+      <div class="section-label">היכן נמצא הניקל?</div>
+      <div class="section-content">
+        ניקל היא המתכת הכי נפוצה בסביבתנו. רוב המתכות וציפויי המתכת מכילים ניקל: תכשיטים, מטבעות, מספריים, אבזמים, רוכסנים (ריץ'-רץ'), מתכתיים, מהדקים, כלי מטבח, שמני סיכה, מזונות שונים וזהב לבן הם חלק מהמקורות היומיומיים לניקל. זהב צהוב מעורב בניקל ומשוחרר ממנו קטנה מלפני השטח.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        יש להימנע ממגע ישיר של העור עם חפצים עשויים ניקל. אלומיניום, מתכות אל-חלד וזהב צהוב הינם בד"כ אלטרנטיבה בטוחה. להשתמש בספרייםכלי מטבח וכד' עם ידיות עץ או פלסטיק. שעונים לא לענות תכשיטים כגון: עגילים, טבעות ושרשראות מבלי לוודא שאן אינם מכילים ניקל. לשם זיהוי הניקל על מוצרים שונים ניתן להשתמש בחומר מיוחד לבדיקה. מוצרים מתכתיים שקשה להימנע ממשימוש ומגע בהם כגון: שעונים, מפתחות וכד' ניתן לצפות במס' שכבות של לקת ציפורניים או פלסטיקים שונים. אם את אלרגי מאד יש להשתמש בכלי מטבח מאלומיניום ולהימנע ממזונות מאלומינים ולהימנע מזונות עשירים בניקל. ניקל מצוי בדגי הרינג, צדפות, אספרגוס, אפונים, פטריות, בצל, תירס, תרד, עגבניות, שעועית, קמח-מלא, אגסים, בוטנים, צימוקים, תה, קוקה-קולה, אבקת קקאו, כרוב, בצים, בשים, שמורים ומזונות מבושלים בכלי מטבח מכילי ניקל. יש להימנע מעבודה ברטיבות שלא בכיסוי מגן מאחר והלחות מגבירה את כושר חדירת הניקל לעור.
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">2</div>
+        <h2 class="allergen-title">לנולין<span class="allergen-title-en">Wool Alcohols / Lanolin</span></h2>
+      </div>
+      <div class="section-label">היכן נמצא הלנולין?</div>
+      <div class="section-content">
+        הלנולין נמצא בחלק נכבד מהמשחות, הקרמים, התחליבים והסבונים המצויים כיום בשוק. לעיתים קרובות נמצא הלנולין במוצרים טכניים כגון מוצרי צחצוח וליטוש (פוליש), מוצרי אימפרגנציה לבגדים, לעור, וקסים למינהם, חומרי סיכה ושמני סיכה.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        הרוקח אמור לדעת באילו מהמוצרים נמצא הלנולין ויכול להציע מוצרים אלטרנטיביים. יש לדווח לרופא המטפל על היותך אלרגי ללנולין. המנע משימוש במוצרים שרשימת המרכיבים שבהם אינה מופיעה על המוצר.
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">3</div>
+        <h2 class="allergen-title">נאומיצין<span class="allergen-title-en">Neomycin</span></h2>
+      </div>
+      <div class="section-content">הנאומיצין הינו אנטיביוטיקה מקומית שכיחה.</div>
+      <div class="section-label">היכן נמצא הנאומיצין?</div>
+      <div class="section-content">
+        הנאומיצין נמצא במשחות וקרמים אנטיביוטיים, בתחליבים, בטיפות אף ובטיפות עיניים.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        המנע משימוש במוצרים מכילי נאומיצין. תכשירים מכילי ג'נטמיצין, סטרפטומיצין, קנאמיצין, פרמציטין עלולים אף הם לגרום לתגובה. כאשר יש צורך בטיפול אנטיביוטי מקומי יש לדווח לרופא המטפל בדבר האלרגיה לנאומיצין ולוודא שימוש בתכשיר תחליפי.
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">4</div>
+        <h2 class="allergen-title">כרום ומלחי כרום<span class="allergen-title-en">Chromium / Chromate</span></h2>
+      </div>
+      <div class="section-content">כרום ומלחי כרום נפוצים בתעשיית שיבוץ האבן.</div>
+      <div class="section-label">היכן נמצא הכרום?</div>
+      <div class="section-content">
+        הכרום מצוי במלט רטוב (מלט יבש אינו מזיק), בעור שעבר גיוון כרום, בכימיקלים מסחריים, במוצרים מצופי כרום, בצבעי בד (צבעים ירוקים), בגופיות, בתעשיית הליטוגרפיה, דבקים שונים, בצבעים, בגפרורים ובמפות מצופות כרום.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        המנע ככל האפשר משימוש בכפפות ונעלי עור. אבקת כביסה עלולה להכיל כמות קטנה של כרום. בעבודה יש לוודא מידע מדויק ומפורט של מרכיבי החומר אתה אתה בא במגע. אין לגעת בגפרורים שרופים או אפר: יש להשתמש במצת. כרום מטאלי אינו אלרגני.
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">5</div>
+        <h2 class="allergen-title">תערובת קאין<span class="allergen-title-en">Caine Mix</span></h2>
+      </div>
+      <div class="section-content">תערובת של בנזוקאין וחומרי הרדמה מקומיים דומים.</div>
+      <div class="section-label">היכן נמצאים הקאינים?</div>
+      <div class="section-content">
+        הבנזוקאין והקאין נמצאים במס' אזורים מצויים במס' תרופות המתווות להקלת כאב, גירוד, עקצוץ, פריחה ועקיצות חרקים. הקאינים נמצאים במס' תכשירים לטחורים, יבלות וסירופים נגד שיעול.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        שימוש בתכשירים רפואיים להתוויות הנ"ל מחייב בדיקה מדוקדקת של מרכיבי התרופות המצויים בעלון המצורף. תכשיר המכיל אחד או יותר מהחומרים: Benzocaine (בנזוקאין), Procaine (פרוקאין), Dibucaine Hydrochloride (דיבוקאין הידרוכלוריד), Tetracaine Hydrochloride (טטרקאין הידרוכלוריד), Ethylaminobenzoate (אתילאמינובנזואט), P. Aminobenzoic Acid (חומצה פרא אמינובנזואית), Ethyl Ester (אתיל אסטר). אם יש צורך בהרדמה מקומית יש לבקש מהרופא להשתמש בתרופות שאינן מכילות קאינים ובעלי סיכון נמוך כגון לידוקאין (Lidocain). זריקות כגון אלה שבהן משתמש רופא השיניים להרדמה מקומית אינן מהוות בד"כ סיכון. תחליבי שיזוף וקרמים המכילים את החומר PABA עלולים אף הם להוות בעיה.
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">6</div>
+        <h2 class="allergen-title">תערובת תמציות ריח בושם<span class="allergen-title-en">Fragrance Mix</span></h2>
+      </div>
+      <div class="section-content">התערובת מכילה 8 מרכיבים הנפוצים בבשמים או בחומרי טעם.</div>
+      <div class="section-label">היכן נמצא ה-Fragrance?</div>
+      <div class="section-content">
+        החומרים נמצאים במס' רב של בשמים, סבונים, נוזל לאחר גילוח, קוסמטיקה, שמפו ובסים, של חומרי ניקוי מבושמים כגון: אבקת כביסה, דטרגנטים, חומרי צחצוח והברקה, מרטים, דאודורנטים וכדומה. חקה מופיע גם במזון מזון, מאפה, במשחות שיניים ובתבלינים.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        יש להשתמש במוצרים היפואלרגניים ללא ריח. אין להשתמש במוצרים שרשימת המרכיבים אינה מופיעה בהם בצורה ברורה. במידה והאלרגיה חריפה יש להימנע ממאכלים מתובלים מדי או בעלי תמציות ריח וטעם כגון: וניל, פר-הוד, ירק, תלתני.
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">7</div>
+        <h2 class="allergen-title">שרף<span class="allergen-title-en">Colophony</span></h2>
+      </div>
+      <div class="section-content">מופק מעצי מחט.</div>
+      <div class="section-label">היכן נמצא השרף?</div>
+      <div class="section-content">
+        השרף נמצא בדבקים, משחות נעליים, לקות, חומרי איטום, גומי, חומרי צחצוח והברקה, קוסמטיקה, חומרי ניקוי על בסיס שמן אורגני, תכשירים להסרת יבלות, וקסים, חוט דנטלי וניקוי שיניים, חומרי לפסים, צבעים, חומרי הלחמה ומוצרי ציפוי שטח. נייר מברקת מאיכות גבוהה עלול להכיל אף הוא שרף.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        יש לבחון הרכב החומרים בתרופות, קוסמטיקה ובמוצרי בית שונים, במידה והרכב ופוש: Resin Cholophony, Abietic Acid, Ethyl Abietate, Abietyl Alcohol. יש להימנע משימוש בחומרים אלה. יש להימנע גם ממאבק נסורת עצי אורן.
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">8</div>
+        <h2 class="allergen-title">שרף אפוקסי<span class="allergen-title-en">Epoxy Resin</span></h2>
+      </div>
+      <div class="section-content">חומר המצוי בחומרי פלסטיק רבים.</div>
+      <div class="section-label">היכן נמצא ה-Epoxy Resin?</div>
+      <div class="section-content">
+        החומר נמצא בדבקים שונים, חומרי ציפוי שטח, בצבעים, חומרי הברקה, חומרי הדבקה דנטליים. <b>שים לב:</b> רק השרף והחומר המקשה הינם מחוללי האלרגיה, הפלסטיק המוגמר המוקשה אינו מהווה בעיה בדרך כלל.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        להימנע ממגע ישיר בכל חומר המכיל Epoxy. יש לידע את רופא השיניים המטפל בדבר האלרגיה.
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">9</div>
+        <h2 class="allergen-title">תערובת קינולין<span class="allergen-title-en">Quinoline Mix</span></h2>
+      </div>
+      <div class="section-content">Q. Mix — חומר אנטיבקטריאלי.</div>
+      <div class="section-label">היכן נמצא ה-Q.Mix?</div>
+      <div class="section-content">
+        הקינולינים נמצאים במשחות, קרמים וחומרי חבישה לטיפול בפצעים זיהומיים ואקזמות זיהומיות. ציון האות "C" מסמל בד"כ נוכחות קינולין, לדוגמה: Vioform.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        יש לידע את הרופא המטפל בדבר האלרגיה ולוודא שימוש בתרופות / חומרי חבישה ללא קינולין.
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">10</div>
+        <h2 class="allergen-title">בלזם פרו<span class="allergen-title-en">Balsam of Peru</span></h2>
+      </div>
+      <div class="section-content">חומר מיצוי מעצי הגדל בדרום אמריקה (Myroxylon Pereirae), המשמש כחומר טעם וריח.</div>
+      <div class="section-label">היכן נמצא בלזם פרו?</div>
+      <div class="section-content">
+        הבלזם משמש כחומר ריח בבשמים רבים, בקוסמטיקה, בקרמים ומשחות רפואיים, בסוגי תה שונים, טבק, בסירופ נגד שיעול, כחומר טעם, טבליות מציצה, מסטיקים וסוכריות. הבלזם משמש גם כחומר טעם בתעשיית הקולה, הגלידה, מיני מאפה ומזונות שונים.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        יש להשתמש בתכשירי קוסמטיקה ורפואה היפואלרגניים נטולי חומרי ריח ובושם. אם לדווח לרופא המטפל בדבר האלרגיה לבלזם. אם האלרגיה חריפה יש להימנע ממאכל מזון מתובלים מדי או בעלי תמציות ריח וטעם כגון: וניל, קינמון וכו'.
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">11</div>
+        <h2 class="allergen-title">אתילן דיאמין<span class="allergen-title-en">Ethylenediamine</span></h2>
+      </div>
+      <div class="section-content">חומר הנמצא בשימוש במייצרים, בחומרי החלבה (Emulsifier) ובחומרי שימור.</div>
+      <div class="section-label">היכן נמצא האתילן דיאמין?</div>
+      <div class="section-content">
+        האתילן דיאמין הידרוכלוריד (כפי שמופיע לעתים) נמצא בתרופות מקומיות נגד פטריות, בקרמים אנטיביוטיים, טיפות עיניים ואף, ובתרופות אמינופילין כחומר נגד זיהום. אנטיהיסטמינים וחומרי גימול (טינקטורה) הנם בעלי הרכב כימי דומה ולכן עלולים לגרום לתופעות אלרגיות. החומר מצוי בעשיית הטקסטיל, בדבקים, בממסים ובחומרים מונעי הקפאה - אוטיפריז.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        יש לדווח לרופא המטפל אודות האלרגיה לחומר ולוודא שימוש בתכשירים ללא אתילן דיאמין. בד"כ משחות מהוות אלטרנטיבה בטוחה יותר מאשר קרמים.
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">12</div>
+        <h2 class="allergen-title">קובלט<span class="allergen-title-en">Cobalt</span></h2>
+      </div>
+      <div class="section-label">היכן נמצא הקובלט?</div>
+      <div class="section-content">
+        הקובלט נמצא במס' רב של מתכות מצופות כגון: אבזמים, כפתורים, מהדקים, רוכסנים (מתכתיים) ומטבעות. כמו כן מצוי בעדיים, שעוני יד, צבעי איפור, קובלט כחול, במלט רטוב (המלט היבש אינו מזיק) ובסגסוגות מתכת.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        הקובלט נמצא בד"כ ביחד עם הניקל. אי לכך, אלרגיה לניקל תצביע קרוב לוודאי גם על אלרגיה לקובלט. יש לענוד תכשיטים ושעוני יד לא מתכתיים (מלבד זהב צהוב). באין ברירה יש לצפות היטב (רצוי במס' שכבות) את המוצר בעזרת לקת ציפורניים או לקות אחרות. יש להימנע מעבודה ממושכת במים - המגביר את כושר חדירת המתכות לעור.
+      </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">13</div>
+        <h2 class="allergen-title">שרף בוטילפנול פורמלדהיד<span class="allergen-title-en">P-tert-Butylphenol Formaldehyde Resin</span></h2>
+      </div>
+      <div class="section-content">שרף הנמצא בדבקים ובתעשיית בניין.</div>
+      <div class="section-label">היכן נמצא ה-בוטילפנול פורמלדהיד?</div>
+      <div class="section-content">
+        החומר נמצא בדבקים אוטמי מים הנמצאים בשימוש בתעשיית העורות, הריהוט, ההנעלה והפיברגלס. אם האלרגיה חריפה מאד תתכן תגובה אלרגית לסוגי סיבים שונים ולנייר מבריק.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        יש להימנע ממגע במוצרים המצופים בחומרי איטום מים כגון: עורות, רהיטים ובסוגי הנעלה יוקרתיים. יש להימנע מחשיפה לתעשיית פיברגלס ושימוש בדבקים.
+      </div>
+    </div>
+
+    <!-- 14 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">14</div>
+        <h2 class="allergen-title">תערובת פארהבן<span class="allergen-title-en">Paraben Mix</span></h2>
+      </div>
+      <div class="section-content">קבוצת כימיקלים המצויה במס' של תכשירים רפואיים לשימוש חיצוני מקומי בקוסמטיקה ובמוצרים שונים לשמירת העור.</div>
+      <div class="section-label">היכן נמצא הפארהבן?</div>
+      <div class="section-content">
+        הפארהבנים נמצאים בתרופות רפואיות וקוסמטיים ובחומרי חבישה. שפופרות וסבונים אינם מהווים סיכון רב. קרמים בעלי טווח השפעה ממושך כגון: קרם יום, קרם לילה, עלולים לגרום לתגובות אלרגיות. כמו כן נמצאים פארהבנים ברוקים (לטקס) ובבדיקות שונים ובמוצרים שונים המכילים חומרי שימור חזקים.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        יש לעבור על רשימת המרכיבים בתוויות של התכשיר הקוסמטי / הרפואי ולוודא כי אינו מכיל פארהבנים: Methyl parahydroxybenzoate, Propagin propyl parahydroxybenzoate, Methyl ethyl propylparabens, Paraoxybenzoic acid. יש לידע את הרופא המטפל אודות האלרגיה לפארהבן כך שיוכל להימנע משימוש בחומרי הרדמה מקומיים העלולים לגרום לתגובות צולבות עם הפארהבן. <b>פארהבנים מצוי במס' רב של תכשירים מקני קרינה — זהירות!</b>
+      </div>
+    </div>
+
+    <!-- 15 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">15</div>
+        <h2 class="allergen-title">תערובת "קארבה"<span class="allergen-title-en">Carba Mix</span></h2>
+      </div>
+      <div class="section-content">קבוצת כימיקלים בשימוש בתעשיית הגומי ובחומרים נוגדי חלודה.</div>
+      <div class="section-label">היכן נמצא ה-"קארבה"?</div>
+      <div class="section-content">
+        כימיקלי ה"קארבה" נמצאים כמעט בכל מוצרי הגומי - נעליים, גומיות, כפפה, ידיות גומי, כלי עבודה, כלי בית וכלי חשמל. נמצאים כשימוש בייצור מוצרים פלסטיים כגון סרטי בידוד, כמו כן נמצא אותם בסוגים שונים של מונעי עובש, קוטלי חרקים ומקומי שונים.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        בבית ובעבודה יש להימנע משימוש בחומרי גומי. קיימים תחליפים מפלסטיק, עור ועץ.
+      </div>
+    </div>
+
+    <!-- 16 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">16</div>
+        <h2 class="allergen-title">תערובת גומי שחור<span class="allergen-title-en">Black Rubber Mix</span></h2>
+      </div>
+      <div class="section-label">היכן נמצא הגומי השחור?</div>
+      <div class="section-content">
+        תוספי הגומי השחור נמצאים כמעט בכל סוגי הגומי כגון: צמיגים, ידיות, צינורות השקיה, מגבים וכו'. מוצרי גומי אחרים (שאינם שחורים) עלולים לגרום לתגובה צולבת לגומי שחור לדוגמה: כפפות גומי. מס' צבעי שיער דומים בהרכבם הכימי ועלולים לכן לגרום לעתים דלקות עור.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        אין לגעת במוצרי גומי שחורים. במידת הצורך יש להשתמש בכפפות בד להגנה מפני מגע ישיר עם גומי שחור.
+      </div>
+    </div>
+
+    <!-- 17 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">17</div>
+        <h2 class="allergen-title">קטון CG<span class="allergen-title-en">Cl+Me-Isothiazolinone (Kathon CG)</span></h2>
+      </div>
+      <div class="section-content">חומר שימור הנמצא בשמפו, קוסמטיקה, תכשירים לטיפוח העור ובחומרי עבודה ביתיים שונים.</div>
+      <div class="section-label">היכן נמצא הקטון?</div>
+      <div class="section-content">
+        הקטון נמצא בקרמים, תחליבים, תרחיצים, שמפו, מגבות לחות, ובמוצרי טיפוח. קרמים בעלי טווח פעולה ממושך כגון קרם יום וקרם לילה. הקטון נמצא גם בשמני סיכה כחומר שימור ובמערכת מיזוג אויר.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        לקטון CG שמות מסחריים שונים, המנע משימוש ב: Acticide, Algucid CH 50, Amerstat 250, Euxyl K100, Grotan TK2, GR 856 Izolin, Metatin GT, Mitco CC Mx323, Parmetol. המנע משימוש במוצרים חסרי תווית תכולת מרכיבים.
+      </div>
+    </div>
+
+    <!-- 18 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">18</div>
+        <h2 class="allergen-title">קואטרניום 15<span class="allergen-title-en">Quaternium 15 (Dowicil 200)</span></h2>
+      </div>
+      <div class="section-content">חומר משמר בתעשיית הקוסמטיקה.</div>
+      <div class="section-label">היכן נמצא קואטרניום 15?</div>
+      <div class="section-content">
+        הקואטרניום 15 (Dowicil 200) נמצא בקרמים, בתחליבים, תרחיצים, שמפו, סבונים ומוצרי קוסמטיקה שונים אחרים, כגון מוצרים לטיפוח העור. שמפו וסבונים לא מהווים גורם סיכון גבוה. קרמים בעלי טווח פעולה ממושך כגון קרם יום, קרם לילה עלולים לגרום לתגובה אלרגית. חומרי הברקה (פוליש) וצבעים על בסיס מים עלולים להכיל קואטרניום 15, כנ"ל שמני סיכה.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        השתמש בתכשירים בעלי תוויות המפרטות את הרכב החומרים. אין להשתמש בתכשירים מכילי קואטרניום 15 או Dowicil 200.
+      </div>
+    </div>
+
+    <!-- 19 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">19</div>
+        <h2 class="allergen-title">מרקפטובנזוטיאזול<span class="allergen-title-en">Mercaptobenzothiazole</span></h2>
+      </div>
+      <div class="section-content">כימיקל בשימוש בתעשיית מוצרי הגומי ומוצרי האל-חלד.</div>
+      <div class="section-label">היכן נמצא ה-מרקפטובנזוטיאזול?</div>
+      <div class="section-content">
+        הכימיקל נמצא במס' רב של מוצרי גומי כגון: נעליים, כפפות, גומיות, ידיות גומי ובכלי בית ועבודה. כמו כן, נמצא אותו בדבקים לתעשיית העור, הפלסטיק ובסרטי בידוד.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        המנע ממגע במוצרי גומי בבית, בעבודה ובמכונית. ישום תחליפי גומי כגון: עץ, פלסטיק, עור. באין ברירה השתמש בכפפות בד למניעת מגע ישיר.
+      </div>
+    </div>
+
+    <!-- 20 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">20</div>
+        <h2 class="allergen-title">פארהפנילן דיאמין P.P.D.<span class="allergen-title-en">p-Phenylendiamine</span></h2>
+      </div>
+      <div class="section-content">צבע כחול שחור.</div>
+      <div class="section-label">היכן נמצא P.P.D?</div>
+      <div class="section-content">
+        ה-P.P.D נמצא ברוב צבעי השיער, כמו-כן בצבעי איפור כהים, גומי שחור, דיו הדפסה ועתנות גם בצבעי בגדים ופרווה. חומרי פיתוח (צילום) ופעולות ליטוגרפיה עלולים להכיל P.P.D.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        בעת צביעת שיער יש לוודא שהצבע אינו מכיל P.P.D. תתכן רגישות לחומרים: p-Toluenediamin, p-Aminodiphenylamine, 2.4-Diaminoanisole, Aminoophenol. מוצרים מכילי PABA, כגון קרמי שיזוף וקרמים אחרים שונים עלולים אף הם להוות בעיה.
+      </div>
+    </div>
+
+    <!-- 21 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">21</div>
+        <h2 class="allergen-title">פורמלדהיד<span class="allergen-title-en">Formaldehyde</span></h2>
+      </div>
+      <div class="section-content">כימיקל מצוי במוצרים רבים בבית ובעבודה.</div>
+      <div class="section-label">היכן נמצא הפורמלדהיד?</div>
+      <div class="section-content">
+        הפורמלדהיד נמצא בכמות גבוהה בתעשיית הפלסטיק, הבניה, בצבעים, במוצרי הברקה ובקוטלי חרקים. בכמות זעירה נמצא אותו בקוסמטיקה כגון: קרמים, שמפו, צבעי איפור, שמני סיכה, מוצרי ניקוי, בדים ובגדים חדשים, בנייר משובח, חומרי ניקוי וחיסוי ביתיים ובעשן הסיגריות ואש.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        יש להימנע ממגע או חשיפה לחומרים המוזכרים לעיל. קשה מאד לישם פעולה זו אך ניתן ככל האפשר למזער את המגע או החשיפה. מומלץ להימנע משימוש בחומרי שימור משחררי פורמלדהיד כגון: Quaternium 15, Germall II, Germall 115, Bronopol.
+      </div>
+    </div>
+
+    <!-- 22 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">22</div>
+        <h2 class="allergen-title">תערובת מרקפטו<span class="allergen-title-en">Mercapto Mix</span></h2>
+      </div>
+      <div class="section-content">קבוצת כימיקלים בשימוש במוצרי גומי ובתעשיית מוצרי האל-חלד.</div>
+      <div class="section-label">היכן נמצא המרקפטו?</div>
+      <div class="section-content">
+        תערובת המרקפטו נמצאת במס' רב של מוצרי גומי כגון: הנעלה, כפפות, גומיות, ידיות גומי, בכלי מטבח ובכלי עבודה.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        המנע ממגע במוצרי גומי בבית, בעבודה ובמכונית. השתמש בתחליפי עץ, פלסטיק, השתמש בכפפות בד להגנה.
+      </div>
+    </div>
+
+    <!-- 23 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">23</div>
+        <h2 class="allergen-title">טיומרסל<span class="allergen-title-en">Thiomersal</span></h2>
+      </div>
+      <div class="section-content">חומר משמר בתעשיית הקוסמטיקה, תכשירי עיניים ותכשירים לטיפול מקומי.</div>
+      <div class="section-label">היכן נמצא הטיומרסל?</div>
+      <div class="section-content">
+        הטיומרסל נמצא בקוסמטיקות שונות כגון: צלליות לעיניים, בטיפות אף ואוזן. משמש לעתים קרובות כחומר משמר בנוזל לניקוי עדשות מגע רכות. בעבר השתמשו בו בייצור תרכיבי חיסון, כיום מאיד השימוש בו בתעשיית התרופות קטן.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        יש לדווח לרופא המטפל אודות האלרגיה שלך. לטיומרסל שם נרדף: Merthiolate. יש להימנע משימוש בתכשירים ומוצרים המכילים טיומרסל.
+      </div>
+    </div>
+
+    <!-- 24 -->
+    <div class="allergen">
+      <div class="allergen-header">
+        <div class="allergen-num">24</div>
+        <h2 class="allergen-title">תערובת תיורם<span class="allergen-title-en">Thiuram Mix</span></h2>
+      </div>
+      <div class="section-content">קבוצת כימיקלים המצויים בגומי.</div>
+      <div class="section-label">היכן נמצא התיורם?</div>
+      <div class="section-content">
+        הטיאורם נמצא כמעט בכל מוצרי הגומי כולל: הנעלה, כפפות, סינרים, ידיות, בכלי בית ועבודה, אטמים, מגבים ובלונים. כמו כן נמצא התיאורם בדבק לתעשיית העור, בקוטלי חרקים, בחומרים דוחי חרקים, בתכשירים נגד גרדת (Scabies), קוטלי פטריות ושמני אטימה.
+      </div>
+      <div class="section-label">כיצד להימנע / אלטרנטיבות אפשריות</div>
+      <div class="section-content">
+        יש להימנע ממגע עם מוצרים מכילי תיאורם כגון: גומי. יש תחליפי גומי רבים ובמידת הצורך יש להשתמש בכפפות בד לשם בידוד. מוצרים מכילי Polyvinyl Chlorid, Polyvinyl Acetate, Polyethylene, Silicon הנם בד"כ בטוחים.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="empty-state" id="empty-state">
+    לא נמצאו תוצאות. נסה מילת חיפוש אחרת.
+  </div>
+
+</div>
+
+<script>
+(function () {
+  const search = document.getElementById('search');
+  const allergens = Array.from(document.querySelectorAll('.allergen'));
+  const empty = document.getElementById('empty-state');
+  const counter = document.getElementById('result-count');
+
+  function applyFilter() {
+    const q = search.value.trim().toLowerCase();
+    let shown = 0;
+    allergens.forEach(a => {
+      const text = (a.textContent || '').toLowerCase();
+      const match = !q || text.includes(q);
+      a.classList.toggle('hidden', !match);
+      if (match) shown++;
+    });
+    empty.classList.toggle('show', shown === 0);
+    counter.textContent = q ? `מציג ${shown} מתוך ${allergens.length} חומרים` : '';
+  }
+
+  search.addEventListener('input', applyFilter);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement !== search) {
+      e.preventDefault(); search.focus(); search.select();
+    } else if (e.key === 'Escape' && document.activeElement === search) {
+      search.value = ''; applyFilter(); search.blur();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
