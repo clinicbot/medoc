@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>טופס 29 - הוראת רופא לשימוש בתכשיר שאינו רשום</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Arial", "David", "Times New Roman", sans-serif;
+    direction: rtl;
+    margin: 0;
+    padding: 20px;
+    background: #f0f0f0;
+    color: #000;
+    line-height: 1.6;
+  }
+  .page {
+    background: #fff;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 40px 50px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  h1 { text-align: center; font-size: 18pt; margin: 0 0 4px; }
+  h2 { text-align: center; font-size: 14pt; margin: 0 0 8px; font-weight: bold; }
+  .subtitle { text-align: center; font-size: 11pt; margin-bottom: 24px; }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: center;
+  }
+  .field { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 150px; }
+  .field label { white-space: nowrap; font-weight: 600; }
+  input[type="text"], input[type="date"], input[type="tel"], input[type="number"], textarea {
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    font-family: inherit;
+    font-size: 11pt;
+    padding: 2px 4px;
+    flex: 1;
+    min-width: 60px;
+    direction: rtl;
+  }
+  input:focus, textarea:focus { outline: none; background: #fffbe6; }
+  textarea { width: 100%; min-height: 50px; resize: vertical; }
+  .full { width: 100%; }
+  .section-title {
+    font-weight: bold;
+    text-decoration: underline;
+    margin: 22px 0 10px;
+    font-size: 12pt;
+  }
+  ul.declaration { padding-right: 22px; margin: 8px 0 14px; }
+  ul.declaration li { margin-bottom: 8px; }
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .checkbox-row label { font-weight: normal; }
+  .countries {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-right: 22px;
+    margin-bottom: 8px;
+  }
+  .countries label { font-weight: normal; }
+  .approvals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 10px;
+  }
+  .approvals-grid .col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+  }
+  .approvals-grid .col-title {
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    padding-bottom: 4px;
+  }
+  .approvals-grid .field {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    min-width: 0;
+  }
+  .approvals-grid .field input {
+    width: 100%;
+    min-width: 0;
+    flex: none;
+  }
+  .notice {
+    margin-top: 22px;
+    padding: 10px;
+    border: 1px solid #000;
+    text-align: center;
+    font-weight: bold;
+  }
+  .notice .underline { text-decoration: underline; }
+  .controls {
+    max-width: 850px;
+    margin: 0 auto 16px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+  }
+  .controls button {
+    background: #2c5aa0;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 12pt;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .controls button:hover { background: #1e3f73; }
+  .controls button.secondary { background: #777; }
+  .controls button.secondary:hover { background: #555; }
+  input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; max-width: 100%; padding: 12mm; }
+    .controls { display: none; }
+    input[type="text"], input[type="date"], input[type="tel"], input[type="number"], textarea {
+      border-bottom: 1px solid #000;
+      background: transparent !important;
+    }
+    @page { size: A4; margin: 12mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <button onclick="window.print()">הדפסה</button>
+  <button class="secondary" onclick="if(confirm('לנקות את הטופס?')) document.getElementById('form29').reset()">ניקוי הטופס</button>
+</div>
+
+<div class="page">
+  <form id="form29">
+    <h1>טופס 29ג</h1>
+    <h2>טופס הוראת רופא לשימוש בתכשיר שאינו רשום במוסד רפואי – למטופל פרטני</h2>
+    <div class="subtitle">(סעיפים 3(ב)(2)(א) ו- (ב), 3(ד)(4) ו-10(ב)(2)(א))</div>
+
+    <div class="row">
+      <div class="field" style="flex: 3;">
+        <label>שם המטופל (ומספר תעודת זהות):</label>
+        <input type="text" name="patient_name">
+      </div>
+      <div class="field">
+        <label>גיל:</label>
+        <input type="text" name="age">
+      </div>
+      <div class="field">
+        <label>מין:</label>
+        <input type="text" name="sex">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field" style="flex: 2;">
+        <label>שם המוסד הרפואי:</label>
+        <input type="text" name="institution">
+      </div>
+      <div class="field">
+        <label>מחלקה:</label>
+        <input type="text" name="department">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field full">
+        <label>שם התכשיר, צורתו ודרך המתן:</label>
+        <input type="text" name="drug_name">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field full">
+        <label>הרכב (חומרים פעילים כמות/ריכוז):</label>
+        <input type="text" name="composition">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field full">
+        <label>שם היצרן וארץ הייצור:</label>
+        <input type="text" name="manufacturer">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field full">
+        <label>ההתוויה המבוקשת:</label>
+        <input type="text" name="indication">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field full" style="flex-direction: column; align-items: stretch;">
+        <label>הנימוקים לכך:</label>
+        <textarea name="justification" rows="3"></textarea>
+      </div>
+    </div>
+    <div style="font-size: 10pt; margin-bottom: 14px;">יש לצרף האסמכתאות הרפואיות ספרות, מאמרים וכיו"ב</div>
+
+    <div class="row">
+      <div class="field">
+        <label>מנה:</label>
+        <input type="text" name="dose">
+      </div>
+      <div class="field">
+        <label>תדירות מתן התכשיר:</label>
+        <input type="text" name="frequency">
+      </div>
+      <div class="field">
+        <label>משך הטיפול:</label>
+        <input type="text" name="duration">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field full">
+        <label>כמות כוללת דרושה (שלא תעלה על כמות צריכה ל-6 חודשים):</label>
+        <input type="text" name="total_quantity">
+      </div>
+    </div>
+
+    <div class="section-title">הצהרת הרופא:</div>
+    <div>אני הח"מ מצהיר ומתחייב כדלקמן:</div>
+    <ul class="declaration">
+      <li>הטיפול בתכשיר הוא חיוני ולא קיים תכשיר חלופי מתאים הרשום ומשווק בישראל לאותה מטרה, או שהתכשיר החלופי המשווק איננו מתאים למטופל/לטיפול (ככל שנדרש לפי ההוראה הנוגעת לעניין בהודעה).</li>
+      <li>התועלת בשימוש בתכשיר עולה על הסיכון הכרוך בו.</li>
+      <li>הסברתי למטופל את משמעות הטיפול בתכשיר/התוויה שאינה רשומה (לפי הענין), והוא נתן, בכתב, מרצונו החופשי, את הסכמתו מדעת לטיפול.</li>
+      <li>ההוראה לשימוש בתכשיר הנ"ל ולהתוויה המבוקשת היא באחריותי הרפואית.</li>
+    </ul>
+
+    <div>כמו כן, אני מצהיר ומתחייב כדלקמן (סמן את המתאים):</div>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="opt_unregistered" name="status" value="unregistered">
+      <label for="opt_unregistered">התכשיר איננו רשום בפנקס התכשירים הרפואיים בישראל.</label>
+    </div>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="opt_offlabel" name="status" value="offlabel">
+      <label for="opt_offlabel">התכשיר רשום בפנקס התכשירים הרפואיים בישראל אך לא להתוויה המבוקשת (Off Label).</label>
+    </div>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="opt_foreign" name="status" value="foreign">
+      <label for="opt_foreign">התכשיר רשום במשרד הבריאות של אחת מהמדינות המוכרות המפורטות להלן ומקובל בה להתוויה המבוקשת:</label>
+    </div>
+
+    <div class="countries">
+      <label><input type="checkbox" name="country_we"> מערב אירופה</label>
+      <input type="text" name="country_we_name" placeholder="שם הארץ" style="max-width: 140px;">
+      <label><input type="checkbox" name="country_us"> ארה"ב</label>
+      <label><input type="checkbox" name="country_ca"> קנדה</label>
+      <label><input type="checkbox" name="country_au"> אוסטרליה</label>
+      <label><input type="checkbox" name="country_jp"> יפן</label>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>אחר, שם הארץ:</label>
+        <input type="text" name="country_other">
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 18px;">
+      <div class="field" style="flex: 2;">
+        <label>שם הרופא:</label>
+        <input type="text" name="doctor_name">
+      </div>
+      <div class="field">
+        <label>מספר טלפון לבירורים:</label>
+        <input type="tel" name="doctor_phone">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>מספר רישיון:</label>
+        <input type="text" name="license_number">
+      </div>
+      <div class="field">
+        <label>מומחיות:</label>
+        <input type="text" name="specialty">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>חתימת הרופא:</label>
+        <input type="text" name="doctor_signature">
+      </div>
+      <div class="field">
+        <label>תאריך:</label>
+        <input type="date" name="doctor_date">
+      </div>
+    </div>
+
+    <div class="section-title">אישורי המוסד הרפואי:</div>
+
+    <div class="approvals-grid">
+      <div class="col">
+        <div class="col-title">יושב ראש ועדת התרופות</div>
+        <div class="field"><label>שם וחתימה:</label><input type="text" name="approval1_name"></div>
+        <div class="field"><label>תאריך:</label><input type="date" name="approval1_date"></div>
+      </div>
+      <div class="col">
+        <div class="col-title">מנהל או מוסמך מטעמו</div>
+        <div class="field"><label>שם וחתימה:</label><input type="text" name="approval2_name"></div>
+        <div class="field"><label>תאריך:</label><input type="date" name="approval2_date"></div>
+      </div>
+      <div class="col">
+        <div class="col-title">מנהל שירותי הרוקחות</div>
+        <div class="field"><label>שם וחתימה:</label><input type="text" name="approval3_name"></div>
+        <div class="field"><label>תאריך:</label><input type="date" name="approval3_date"></div>
+      </div>
+    </div>
+
+    <div class="notice">תוקף האישור לא יעלה על 6 חודשים.</div>
+
+    <div style="margin-top: 14px; font-weight: bold;">
+      מגיש האישור יזין את הטופס במערכת המקוונת לתכשירי 29 (בכפוף לאמור בהודעה להסכמת המנהל)
+    </div>
+
+    <div class="notice">אישור זה <span class="underline">איננו</span> אישור לשחרור התכשיר מהמכס</div>
+
+  </form>
+</div>
+
+</body>
+</html>
