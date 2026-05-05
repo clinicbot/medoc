@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forms &amp; Documents</title>
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: #f5f6f8;
+    color: #1a1a1a;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    direction: rtl;
+  }
+
+  header {
+    background: #fff;
+    border-bottom: 1px solid #e1e4e8;
+    padding: 24px 40px 20px 40px;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  header p {
+    margin: 6px 0 0 0;
+    color: #666;
+    font-size: 14px;
+  }
+
+  /* Controls: search + category chips */
+  .controls {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 22px 24px 0 24px;
+  }
+  .search-wrap {
+    position: relative;
+    margin-bottom: 14px;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 12px 44px 12px 14px;
+    font-size: 15px;
+    border: 1px solid #d0d4da;
+    border-radius: 10px;
+    background: #fff;
+    outline: none;
+    direction: rtl;
+    font-family: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .search-wrap input:focus {
+    border-color: #3955d6;
+    box-shadow: 0 0 0 3px rgba(57,85,214,0.12);
+  }
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 18px;
+    pointer-events: none;
+  }
+  .kbd-hint {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: #999;
+    background: #f0f2f5;
+    padding: 3px 7px;
+    border-radius: 4px;
+    border: 1px solid #dde1e6;
+    font-family: ui-monospace, monospace;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    padding: 7px 14px;
+    background: #fff;
+    border: 1px solid #d0d4da;
+    border-radius: 999px;
+    font-size: 13px;
+    color: #444;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.12s ease;
+    font-family: inherit;
+  }
+  .chip:hover { border-color: #999; }
+  .chip.active {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #1a1a1a;
+  }
+  .chip .count {
+    color: #999;
+    font-size: 11px;
+    margin-right: 4px;
+  }
+  .chip.active .count { color: #bbb; }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 22px 24px 40px 24px;
+  }
+
+  .result-info {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 14px;
+    min-height: 18px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid #e1e4e8;
+    border-radius: 10px;
+    padding: 20px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 140px;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    border-color: #cfd4da;
+  }
+  .card.hidden { display: none; }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .card-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .card-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .card-icon svg.filled {
+    fill: currentColor;
+    stroke: none;
+  }
+  .card-cat-tag {
+    font-size: 10.5px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #f0f2f5;
+    color: #666;
+    white-space: nowrap;
+  }
+
+  /* Category color coding */
+  .card[data-category="consent"]   .card-icon { background: #fef3e6; color: #c56a00; }
+  .card[data-category="insurance"] .card-icon { background: #e6f4fe; color: #0064c5; }
+  .card[data-category="info"]      .card-icon { background: #eefbe8; color: #2a7a14; }
+  .card[data-category="external"]  .card-icon { background: #f0edff; color: #5030c5; }
+
+  .card-title {
+    font-size: 15.5px;
+    font-weight: 600;
+    margin: 0;
+    color: #1a1a1a;
+    line-height: 1.3;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+    flex-grow: 1;
+  }
+  .card-meta {
+    font-size: 11.5px;
+    color: #999;
+    margin-top: auto;
+  }
+
+  .empty-state {
+    padding: 40px 20px;
+    text-align: center;
+    color: #888;
+    background: #fff;
+    border: 1px dashed #d0d4da;
+    border-radius: 10px;
+    display: none;
+  }
+  .empty-state.show { display: block; }
+
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    color: #999;
+    font-size: 12px;
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 18px 20px; }
+    .controls, main { padding-left: 16px; padding-right: 16px; }
+    .kbd-hint { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== SVG Icon Sprite ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="4"/>
+      <line x1="12" y1="2" x2="12" y2="4"/>
+      <line x1="12" y1="20" x2="12" y2="22"/>
+      <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/>
+      <line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/>
+      <line x1="2" y1="12" x2="4" y2="12"/>
+      <line x1="20" y1="12" x2="22" y2="12"/>
+      <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/>
+      <line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/>
+    </symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </symbol>
+    <symbol id="i-snowflake" viewBox="0 0 24 24">
+      <line x1="12" y1="2" x2="12" y2="22"/>
+      <line x1="2" y1="12" x2="22" y2="12"/>
+      <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+      <line x1="4.93" y1="19.07" x2="19.07" y2="4.93"/>
+      <polyline points="9 5 12 2 15 5"/>
+      <polyline points="9 19 12 22 15 19"/>
+      <polyline points="5 9 2 12 5 15"/>
+      <polyline points="19 9 22 12 19 15"/>
+    </symbol>
+    <symbol id="i-scissors" viewBox="0 0 24 24">
+      <circle cx="6" cy="6" r="3"/>
+      <circle cx="6" cy="18" r="3"/>
+      <line x1="20" y1="4" x2="8.12" y2="15.88"/>
+      <line x1="14.47" y1="14.48" x2="20" y2="20"/>
+      <line x1="8.12" y1="8.12" x2="12" y2="12"/>
+    </symbol>
+    <symbol id="i-clipboard-check" viewBox="0 0 24 24">
+      <rect x="8" y="2" width="8" height="4" rx="1"/>
+      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+      <polyline points="9 14 11 16 15 12"/>
+    </symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24">
+      <path d="M18 11V6a2 2 0 0 0-4 0"/>
+      <path d="M14 10V4a2 2 0 0 0-4 0v2"/>
+      <path d="M10 10.5V6a2 2 0 0 0-4 0v8"/>
+      <path d="M18 8a2 2 0 0 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
+    </symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24">
+      <path d="M9 2v6l-4.5 9a3 3 0 0 0 2.6 4.5h9.8a3 3 0 0 0 2.6-4.5L15 8V2"/>
+      <line x1="8" y1="2" x2="16" y2="2"/>
+      <line x1="6.5" y1="14" x2="17.5" y2="14"/>
+    </symbol>
+    <symbol id="i-pill" viewBox="0 0 24 24">
+      <path d="M10.5 20.5 20.5 10.5a4.95 4.95 0 0 0-7-7l-10 10a4.95 4.95 0 0 0 7 7Z"/>
+      <line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/>
+    </symbol>
+    <symbol id="i-user" viewBox="0 0 24 24">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+      <circle cx="12" cy="7" r="4"/>
+    </symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="7" height="7"/>
+      <rect x="14" y="3" width="7" height="7"/>
+      <rect x="14" y="14" width="7" height="7"/>
+      <rect x="3" y="14" width="7" height="7"/>
+    </symbol>
+    <symbol id="i-file-text" viewBox="0 0 24 24">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+      <line x1="16" y1="13" x2="8" y2="13"/>
+      <line x1="16" y1="17" x2="8" y2="17"/>
+      <line x1="10" y1="9" x2="8" y2="9"/>
+    </symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24">
+      <path d="M12 3l1.9 5.6L19 10l-5.1 1.4L12 17l-1.9-5.6L5 10l5.1-1.4z"/>
+      <path d="M19 16l.6 1.7 1.7.6-1.7.6L19 20.6l-.6-1.7-1.7-.6 1.7-.6z"/>
+      <path d="M5 16l.5 1.5 1.5.5-1.5.5L5 20l-.5-1.5L3 18l1.5-.5z"/>
+    </symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="2" y1="12" x2="22" y2="12"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </symbol>
+    <symbol id="i-github" viewBox="0 0 24 24">
+      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    </symbol>
+    <symbol id="i-headphones" viewBox="0 0 24 24">
+      <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+      <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+      <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <h1>Forms &amp; Documents</h1>
+  <p>חיפוש לפי שם / תיאור, או סינון לפי קטגוריה. לחץ <b>/</b> כדי לקפוץ לחיפוש.</p>
+</header>
+
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search" placeholder="חפש טופס, מסמך, או אתר..." autocomplete="off" />
+    <span class="kbd-hint">/</span>
+  </div>
+
+  <div class="chips" id="chips">
+    <button class="chip active" data-cat="all">הכל <span class="count" id="count-all"></span></button>
+    <button class="chip" data-cat="consent">טפסי הסכמה <span class="count" id="count-consent"></span></button>
+    <button class="chip" data-cat="insurance">ביטוח / קופות חולים <span class="count" id="count-insurance"></span></button>
+    <button class="chip" data-cat="info">דפי מידע למטופל <span class="count" id="count-info"></span></button>
+    <button class="chip" data-cat="external">אתרים חיצוניים <span class="count" id="count-external"></span></button>
+  </div>
+</div>
+
+<main>
+
+  <div class="result-info" id="result-info"></div>
+
+  <div class="grid" id="grid">
+
+    <!-- === טפסי הסכמה === -->
+
+    <a class="card" data-category="consent" href="consent_ipl.html">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-sun"/></svg></div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
+      <h3 class="card-title">טופס הסכמה - IPL</h3>
+      <p class="card-desc">הסכמה לטיפול בנגעים / כתמים ב-IPL, כולל תופעות לוואי, עלויות ושדות חתימה.</p>
+      <div class="card-meta">Fillable · Printable</div>
+    </a>
+
+    <a class="card" data-category="consent" href="consent_edc.html">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-zap"/></svg></div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
+      <h3 class="card-title">אלקטרודסיקציה + קורטאג'</h3>
+      <p class="card-desc">הסכמה לטיפול בנגעים במחט חשמלית בשילוב כפית כירורגית.</p>
+      <div class="card-meta">Fillable · Printable</div>
+    </a>
+
+    <a class="card" data-category="consent" href="consent_electrodesiccation.html">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-zap"/></svg></div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
+      <h3 class="card-title">אלקטרודסיקציה</h3>
+      <p class="card-desc">הסכמה לטיפול בנגעים / כתמים במחט חשמלית.</p>
+      <div class="card-meta">Fillable · Printable</div>
+    </a>
+
+    <a class="card" data-category="consent" href="consent_nitrogen.html">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-snowflake"/></svg></div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
+      <h3 class="card-title">חנקן נוזלי</h3>
+      <p class="card-desc">הסכמה לטיפול בנגעים / כתמים בחנקן נוזלי (קריותרפיה).</p>
+      <div class="card-meta">Fillable · Printable</div>
+    </a>
+
+    <a class="card" data-category="consent" href="consent_curettage.html">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-scissors"/></svg></div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
+      <h3 class="card-title">קורטאג'</h3>
+      <p class="card-desc">הסכמה לטיפול בנגעים / כתמים בכפית כירורגית (curettage).</p>
+      <div class="card-meta">Fillable · Printable</div>
+    </a>
+
+    <a class="card" data-category="consent" href="consent_general.html">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-clipboard-check"/></svg></div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
+      <h3 class="card-title">הסכמה כללית - הסרת נגע</h3>
+      <p class="card-desc">טופס הסכמה כללי להסרת נגע בעור, כולל כריתה כירורגית, הרדמה ותפרים.</p>
+      <div class="card-meta">Fillable · Printable</div>
+    </a>
+
+    <a class="card" data-category="consent" href="consent_nail_ipl.html">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-hand"/></svg></div>
+        <div class="card-cat-tag">טופס הסכמה</div>
+      </div>
+      <h3 class="card-title">טיפול בצפרניים IPL</h3>
+      <p class="card-desc">הסכמה לטיפול פטרת ציפורניים בטכנולוגיית לייזר/IPL, כולל טבלת מצבי בריאות.</p>
+      <div class="card-meta">Fillable · Printable</div>
+    </a>
+
+    <!-- === ביטוח / קופות חולים === -->
+
+    <a class="card" data-category="insurance" href="maccabi_private_treatment_form.html">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-shield"/></svg></div>
+        <div class="card-cat-tag">ביטוח</div>
+      </div>
+      <h3 class="card-title">הצהרת מבוטח - מכבי</h3>
+      <p class="card-desc">הפניה לטיפול רפואי פרטי — טופס הצהרת מבוטח מכבי שירותי בריאות, כולל פרטי הרופא, המבוטח והאפוטרופוס.</p>
+      <div class="card-meta">Fillable · Printable · 2 pages</div>
+    </a>
+
+    <!-- === דפי מידע למטופל === -->
+
+    <a class="card" data-category="info" href="pigmentation_treatment_form.html">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-flask"/></svg></div>
+        <div class="card-cat-tag">מידע למטופל</div>
+      </div>
+      <h3 class="card-title">Kligman — פורמולציות לפיגמנטציה</h3>
+      <p class="card-desc">טופס מרשם ל-12 פורמולציות קרם לטיפול בפיגמנטציה, כולל תיבות סימון ומספרי קטלוג.</p>
+      <div class="card-meta">Fillable · Printable</div>
+    </a>
+
+    <a class="card" data-category="info" href="info_roaccutane.html">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-pill"/></svg></div>
+        <div class="card-cat-tag">מידע למטופל</div>
+      </div>
+      <h3 class="card-title">רואקוטן - דף למטופל</h3>
+      <p class="card-desc">דף מידע והסכמה לטיפול ברואקוטן — תופעות לוואי, בדיקות, אזהרות וחתימת מטופל.</p>
+      <div class="card-meta">Fillable · Printable</div>
+    </a>
+
+    <a class="card" data-category="info" href="info_alopecia_protocol.html">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-user"/></svg></div>
+        <div class="card-cat-tag">פרוטוקול</div>
+      </div>
+      <h3 class="card-title">Androgenetic Alopecia — Protocol</h3>
+      <p class="card-desc">Stepwise treatment protocol for male and female pattern hair loss — Minoxidil, Finasteride, Dutasteride, Spironolactone.</p>
+      <div class="card-meta">Reference · Printable</div>
+    </a>
+
+    <a class="card" data-category="info" href="info_patch_test.html">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-grid"/></svg></div>
+        <div class="card-cat-tag">מידע למטופל</div>
+      </div>
+      <h3 class="card-title">תבחיני מטלית — TRUE-TEST</h3>
+      <p class="card-desc">רשימת 24 החומרים הנבדקים בתבחין המטלית, איפה הם נמצאים ואיך להימנע מהם אם זוהתה אלרגיה. עם חיפוש מובנה.</p>
+      <div class="card-meta">Reference · Printable · Searchable</div>
+    </a>
+
+    <a class="card" data-category="info" href="tofes_29.html">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-file-text"/></svg></div>
+        <div class="card-cat-tag">טופס רגולטורי</div>
+      </div>
+      <h3 class="card-title">טופס 29 — תכשיר שאינו רשום</h3>
+      <p class="card-desc">טופס הוראת רופא לשימוש בתכשיר שאינו רשום במוסד רפואי, למטופל פרטני. כולל הצהרת רופא ואישורי המוסד.</p>
+      <div class="card-meta">Fillable · Printable</div>
+    </a>
+
+    <!-- === אתרים חיצוניים === -->
+
+    <a class="card" data-category="external" href="https://shapiro-ai-links.netlify.app/" target="_blank" rel="noopener">
+      <div class="card-top">
+        <div class="card-icon"><svg class="filled"><use href="#i-sparkles"/></svg></div>
+        <div class="card-cat-tag">אתר חיצוני</div>
+      </div>
+      <h3 class="card-title">Shapiro AI Links</h3>
+      <p class="card-desc">Collection of AI tools and resources.</p>
+      <div class="card-meta">shapiro-ai-links.netlify.app ↗</div>
+    </a>
+
+    <a class="card" data-category="external" href="https://jshapiro.co.il" target="_blank" rel="noopener">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-globe"/></svg></div>
+        <div class="card-cat-tag">אתר חיצוני</div>
+      </div>
+      <h3 class="card-title">jshapiro.co.il</h3>
+      <p class="card-desc">My personal website.</p>
+      <div class="card-meta">jshapiro.co.il ↗</div>
+    </a>
+
+    <a class="card" data-category="external" href="https://github.com/clinicbot" target="_blank" rel="noopener">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-github"/></svg></div>
+        <div class="card-cat-tag">אתר חיצוני</div>
+      </div>
+      <h3 class="card-title">GitHub — clinicbot</h3>
+      <p class="card-desc">My GitHub profile and repositories.</p>
+      <div class="card-meta">github.com/clinicbot ↗</div>
+    </a>
+
+    <a class="card" data-category="external" href="https://teledoc-support.vercel.app/" target="_blank" rel="noopener">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-headphones"/></svg></div>
+        <div class="card-cat-tag">אתר חיצוני</div>
+      </div>
+      <h3 class="card-title">Teledoc Support</h3>
+      <p class="card-desc">Teledoc support site.</p>
+      <div class="card-meta">teledoc-support.vercel.app ↗</div>
+    </a>
+
+  </div>
+
+  <div class="empty-state" id="empty-state">
+    לא נמצאו תוצאות. נסה מילת חיפוש אחרת או קטגוריה אחרת.
+  </div>
+
+</main>
+
+<footer>
+  &copy; 2026 · דר' יונתן שפירא
+</footer>
+
+<script>
+(function () {
+  const search    = document.getElementById('search');
+  const chipsWrap = document.getElementById('chips');
+  const grid      = document.getElementById('grid');
+  const cards     = Array.from(grid.querySelectorAll('.card'));
+  const info      = document.getElementById('result-info');
+  const empty     = document.getElementById('empty-state');
+
+  // Count items per category
+  const counts = { all: cards.length, consent: 0, insurance: 0, info: 0, external: 0 };
+  cards.forEach(c => {
+    const cat = c.dataset.category;
+    if (counts[cat] !== undefined) counts[cat]++;
+  });
+  Object.keys(counts).forEach(k => {
+    const el = document.getElementById('count-' + k);
+    if (el) el.textContent = counts[k];
+  });
+
+  let activeCat = 'all';
+
+  function applyFilter() {
+    const q = search.value.trim().toLowerCase();
+    let shown = 0;
+
+    cards.forEach(card => {
+      const catMatch = activeCat === 'all' || card.dataset.category === activeCat;
+      const text = (card.textContent || '').toLowerCase();
+      const searchMatch = !q || text.includes(q);
+      const visible = catMatch && searchMatch;
+      card.classList.toggle('hidden', !visible);
+      if (visible) shown++;
+    });
+
+    empty.classList.toggle('show', shown === 0);
+    if (q || activeCat !== 'all') {
+      info.textContent = `מציג ${shown} מתוך ${cards.length} פריטים`;
+    } else {
+      info.textContent = '';
+    }
+  }
+
+  search.addEventListener('input', applyFilter);
+
+  chipsWrap.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    chipsWrap.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeCat = chip.dataset.cat;
+    applyFilter();
+  });
+
+  // Keyboard shortcut: "/" focuses the search input
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement !== search) {
+      e.preventDefault();
+      search.focus();
+      search.select();
+    } else if (e.key === 'Escape' && document.activeElement === search) {
+      search.value = '';
+      applyFilter();
+      search.blur();
+    }
+  });
+
+  applyFilter();
+})();
+</script>
+
+</body>
+</html>
