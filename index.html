@@ -225,6 +225,7 @@
   .card[data-category="insurance"] .card-icon { background: #e6f4fe; color: #0064c5; }
   .card[data-category="info"]      .card-icon { background: #eefbe8; color: #2a7a14; }
   .card[data-category="external"]  .card-icon { background: #f0edff; color: #5030c5; }
+  .card[data-category="tools"]     .card-icon { background: #e6f7f5; color: #0b7a6e; }
 
   .card-title {
     font-size: 15.5px;
@@ -368,6 +369,16 @@
     <symbol id="i-activity" viewBox="0 0 24 24">
       <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
     </symbol>
+    <symbol id="i-qr" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="7" height="7" rx="1"/>
+      <rect x="14" y="3" width="7" height="7" rx="1"/>
+      <rect x="3" y="14" width="7" height="7" rx="1"/>
+      <line x1="14" y1="14" x2="14" y2="17"/>
+      <line x1="14" y1="21" x2="17" y2="21"/>
+      <line x1="21" y1="14" x2="21" y2="21"/>
+      <line x1="17" y1="14" x2="18" y2="14"/>
+      <line x1="17" y1="17" x2="18" y2="18"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -388,6 +399,7 @@
     <button class="chip" data-cat="consent">טפסי הסכמה <span class="count" id="count-consent"></span></button>
     <button class="chip" data-cat="insurance">ביטוח / קופות חולים <span class="count" id="count-insurance"></span></button>
     <button class="chip" data-cat="info">דפי מידע למטופל <span class="count" id="count-info"></span></button>
+    <button class="chip" data-cat="tools">כלים <span class="count" id="count-tools"></span></button>
     <button class="chip" data-cat="external">אתרים חיצוניים <span class="count" id="count-external"></span></button>
   </div>
 </div>
@@ -542,6 +554,18 @@
       <h3 class="card-title">טופס 29 — תכשיר שאינו רשום</h3>
       <p class="card-desc">טופס הוראת רופא לשימוש בתכשיר שאינו רשום במוסד רפואי, למטופל פרטני. כולל הצהרת רופא ואישורי המוסד.</p>
       <div class="card-meta">Fillable · Printable</div>
+    </a>
+
+    <!-- === כלים === -->
+
+    <a class="card" data-category="tools" href="https://clinicbot.github.io/qr/" target="_blank" rel="noopener">
+      <div class="card-top">
+        <div class="card-icon"><svg><use href="#i-qr"/></svg></div>
+        <div class="card-cat-tag">כלי</div>
+      </div>
+      <h3 class="card-title">מחולל QR</h3>
+      <p class="card-desc">יצירת קוד QR מקישור או טקסט, להדפסה או לשיתוף.</p>
+      <div class="card-meta">clinicbot.github.io/qr ↗</div>
     </a>
 
     <!-- === אתרים חיצוניים === -->
@@ -708,7 +732,7 @@
   const empty     = document.getElementById('empty-state');
 
   // Count items per category
-  const counts = { all: cards.length, consent: 0, insurance: 0, info: 0, external: 0 };
+  const counts = { all: cards.length, consent: 0, insurance: 0, info: 0, tools: 0, external: 0 };
   cards.forEach(c => {
     const cat = c.dataset.category;
     if (counts[cat] !== undefined) counts[cat]++;
