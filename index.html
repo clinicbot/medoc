@@ -228,6 +228,25 @@
   .card[data-category="tools"]     .card-icon { background: #e6f7f5; color: #0b7a6e; }
   .card[data-category="startup"]   .card-icon { background: #fdeef3; color: #b8285c; }
 
+  /* Brand cards (external links): header band in the site's own color, favicon on a white box */
+  .card.brand { padding-top: 0; }
+  .card.brand .card-top {
+    background: var(--brand);
+    color: #fff;
+    margin: 0 -20px 4px -20px;
+    padding: 14px 20px;
+    border-radius: 9px 9px 0 0;
+  }
+  .card.brand .card-icon {
+    width: 44px;
+    height: 44px;
+    background: #fff;
+    color: var(--brand);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  }
+  .card.brand .card-icon img { width: 28px; height: 28px; object-fit: contain; display: block; }
+  .card.brand .card-cat-tag { background: rgba(255,255,255,0.22); color: #fff; }
+
   .card-title {
     font-size: 15.5px;
     font-weight: 600;
@@ -592,7 +611,7 @@
 
     <!-- === כלים === -->
 
-    <a class="card" data-category="tools" href="https://clinicbot.github.io/qr/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="tools" href="https://clinicbot.github.io/qr/" target="_blank" rel="noopener" style="--brand:#0B7A6E">
       <div class="card-top">
         <div class="card-icon"><svg><use href="#i-qr"/></svg></div>
         <div class="card-cat-tag">כלי</div>
@@ -602,9 +621,9 @@
       <div class="card-meta">clinicbot.github.io/qr ↗</div>
     </a>
 
-    <a class="card" data-category="tools" href="https://github.com/clinicbot/you_down" target="_blank" rel="noopener">
+    <a class="card brand" data-category="tools" href="https://github.com/clinicbot/you_down" target="_blank" rel="noopener" style="--brand:#24292F">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-download"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=github.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">כלי</div>
       </div>
       <h3 class="card-title">you_down</h3>
@@ -612,7 +631,7 @@
       <div class="card-meta">github.com/clinicbot/you_down ↗</div>
     </a>
 
-    <a class="card" data-category="tools" href="https://jshapiro.co.il/chat" target="_blank" rel="noopener">
+    <a class="card brand" data-category="tools" href="https://jshapiro.co.il/chat" target="_blank" rel="noopener" style="--brand:#3955D6">
       <div class="card-top">
         <div class="card-icon"><svg><use href="#i-chat"/></svg></div>
         <div class="card-cat-tag">כלי</div>
@@ -624,9 +643,9 @@
 
     <!-- === Startup === -->
 
-    <a class="card" data-category="startup" href="https://www.ezcount.co.il/backoffice/customers" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://www.ezcount.co.il/backoffice/customers" target="_blank" rel="noopener" style="--brand:#14274E">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-file-text"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=www.ezcount.co.il" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">EZcount — לקוחות</h3>
@@ -634,9 +653,9 @@
       <div class="card-meta">ezcount.co.il ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="http://www.facebook.com/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="http://www.facebook.com/" target="_blank" rel="noopener" style="--brand:#1877F2">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-globe"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=www.facebook.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">Facebook</h3>
@@ -644,7 +663,7 @@
       <div class="card-meta">facebook.com ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://c.mac.org.il/vpn/index.html" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://c.mac.org.il/vpn/index.html" target="_blank" rel="noopener" style="--brand:#0072BC">
       <div class="card-top">
         <div class="card-icon"><svg><use href="#i-shield"/></svg></div>
         <div class="card-cat-tag">startup</div>
@@ -654,9 +673,9 @@
       <div class="card-meta">c.mac.org.il ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://chat.openai.com/chat?model=gpt-4" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://chat.openai.com/chat?model=gpt-4" target="_blank" rel="noopener" style="--brand:#10A37F">
       <div class="card-top">
-        <div class="card-icon"><svg class="filled"><use href="#i-sparkles"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=chat.openai.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">ChatGPT</h3>
@@ -664,9 +683,9 @@
       <div class="card-meta">chat.openai.com ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://online2.leumit.co.il/Extranet_Online/Login/Login.aspx" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://online2.leumit.co.il/Extranet_Online/Login/Login.aspx" target="_blank" rel="noopener" style="--brand:#C8157F">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-shield"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=leumit.co.il" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">לאומית — Extranet</h3>
@@ -674,9 +693,9 @@
       <div class="card-meta">online2.leumit.co.il ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://open.spotify.com/artist/2PgD2yAtkUcDgZ1Yz0SPSA" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://open.spotify.com/artist/2PgD2yAtkUcDgZ1Yz0SPSA" target="_blank" rel="noopener" style="--brand:#1DB954">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-headphones"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=open.spotify.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">Spotify — עמוד אמן</h3>
@@ -684,9 +703,9 @@
       <div class="card-meta">open.spotify.com ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://web.whatsapp.com/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://web.whatsapp.com/" target="_blank" rel="noopener" style="--brand:#25D366">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-chat"/></svg></div>
+        <div class="card-icon"><img src="https://icons.duckduckgo.com/ip3/whatsapp.com.ico" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">WhatsApp Web</h3>
@@ -694,9 +713,9 @@
       <div class="card-meta">web.whatsapp.com ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://www.bankhapoalim.biz/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://www.bankhapoalim.biz/" target="_blank" rel="noopener" style="--brand:#E4002B">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-activity"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=bankhapoalim.co.il" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">בנק הפועלים — עסקים</h3>
@@ -704,9 +723,9 @@
       <div class="card-meta">bankhapoalim.biz ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://login.bankhapoalim.co.il/cgi-bin/poalwwwc?reqName=getLogonPage" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://login.bankhapoalim.co.il/cgi-bin/poalwwwc?reqName=getLogonPage" target="_blank" rel="noopener" style="--brand:#E4002B">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-activity"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=bankhapoalim.co.il" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">בנק הפועלים — כניסה</h3>
@@ -714,9 +733,9 @@
       <div class="card-meta">bankhapoalim.co.il ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://myclinicbot.com/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://myclinicbot.com/" target="_blank" rel="noopener" style="--brand:#3C8D5A">
       <div class="card-top">
-        <div class="card-icon"><svg class="filled"><use href="#i-sparkles"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=myclinicbot.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">MyClinicBot</h3>
@@ -724,9 +743,9 @@
       <div class="card-meta">myclinicbot.com ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://ypay.co.il/main/index/login" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://ypay.co.il/main/index/login" target="_blank" rel="noopener" style="--brand:#3AA935">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-file-text"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=ypay.co.il" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">Ypay</h3>
@@ -734,7 +753,7 @@
       <div class="card-meta">ypay.co.il ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="http://www.odoro.co.il/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="http://www.odoro.co.il/" target="_blank" rel="noopener" style="--brand:#B8285C">
       <div class="card-top">
         <div class="card-icon"><svg><use href="#i-user"/></svg></div>
         <div class="card-cat-tag">startup</div>
@@ -744,9 +763,9 @@
       <div class="card-meta">odoro.co.il ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://login.segment.co.il/apps_he.html?ms=False" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://login.segment.co.il/apps_he.html?ms=False" target="_blank" rel="noopener" style="--brand:#1E5AA8">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-grid"/></svg></div>
+        <div class="card-icon"><img src="https://icons.duckduckgo.com/ip3/login.segment.co.il.ico" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">Segment</h3>
@@ -754,9 +773,9 @@
       <div class="card-meta">segment.co.il ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://www.google.com/android/find/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://www.google.com/android/find/" target="_blank" rel="noopener" style="--brand:#4285F4">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-globe"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=www.google.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">Find My Device</h3>
@@ -764,9 +783,9 @@
       <div class="card-meta">google.com ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://www.shidurit.com/yoman2000.aspx" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://www.shidurit.com/yoman2000.aspx" target="_blank" rel="noopener" style="--brand:#E88A1A">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-file-text"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=www.shidurit.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">שידורית — יומן</h3>
@@ -774,7 +793,7 @@
       <div class="card-meta">shidurit.com ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://secure.cardcom.solutions/?r=20" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://secure.cardcom.solutions/?r=20" target="_blank" rel="noopener" style="--brand:#B8285C">
       <div class="card-top">
         <div class="card-icon"><svg><use href="#i-activity"/></svg></div>
         <div class="card-cat-tag">startup</div>
@@ -784,9 +803,9 @@
       <div class="card-meta">cardcom.solutions ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://019sms.co.il/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://019sms.co.il/" target="_blank" rel="noopener" style="--brand:#E01E4C">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-chat"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=019sms.co.il" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">019 SMS</h3>
@@ -794,9 +813,9 @@
       <div class="card-meta">019sms.co.il ↗</div>
     </a>
 
-    <a class="card" data-category="startup" href="https://web.telegram.org/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="startup" href="https://web.telegram.org/" target="_blank" rel="noopener" style="--brand:#2AABEE">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-chat"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=web.telegram.org" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">startup</div>
       </div>
       <h3 class="card-title">Telegram Web</h3>
@@ -806,7 +825,7 @@
 
     <!-- === אתרים חיצוניים === -->
 
-    <a class="card" data-category="external" href="https://shapiro-ai-links.netlify.app/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://shapiro-ai-links.netlify.app/" target="_blank" rel="noopener" style="--brand:#5030C5">
       <div class="card-top">
         <div class="card-icon"><svg class="filled"><use href="#i-sparkles"/></svg></div>
         <div class="card-cat-tag">אתר חיצוני</div>
@@ -816,7 +835,7 @@
       <div class="card-meta">shapiro-ai-links.netlify.app ↗</div>
     </a>
 
-    <a class="card" data-category="external" href="https://jshapiro.co.il" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://jshapiro.co.il" target="_blank" rel="noopener" style="--brand:#3955D6">
       <div class="card-top">
         <div class="card-icon"><svg><use href="#i-globe"/></svg></div>
         <div class="card-cat-tag">אתר חיצוני</div>
@@ -826,9 +845,9 @@
       <div class="card-meta">jshapiro.co.il ↗</div>
     </a>
 
-    <a class="card" data-category="external" href="https://github.com/clinicbot" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://github.com/clinicbot" target="_blank" rel="noopener" style="--brand:#24292F">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-github"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=github.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">אתר חיצוני</div>
       </div>
       <h3 class="card-title">GitHub — clinicbot</h3>
@@ -836,9 +855,9 @@
       <div class="card-meta">github.com/clinicbot ↗</div>
     </a>
 
-    <a class="card" data-category="external" href="https://teledoc-support.vercel.app/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://teledoc-support.vercel.app/" target="_blank" rel="noopener" style="--brand:#111111">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-headphones"/></svg></div>
+        <div class="card-icon"><img src="https://icons.duckduckgo.com/ip3/teledoc-support.vercel.app.ico" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">אתר חיצוני</div>
       </div>
       <h3 class="card-title">Teledoc Support</h3>
@@ -846,7 +865,7 @@
       <div class="card-meta">teledoc-support.vercel.app ↗</div>
     </a>
 
-    <a class="card" data-category="external" href="https://emr-black.vercel.app/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://emr-black.vercel.app/" target="_blank" rel="noopener" style="--brand:#5030C5">
       <div class="card-top">
         <div class="card-icon"><svg><use href="#i-activity"/></svg></div>
         <div class="card-cat-tag">אתר חיצוני</div>
@@ -856,9 +875,9 @@
       <div class="card-meta">emr-black.vercel.app ↗</div>
     </a>
 
-    <a class="card" data-category="external" href="https://secapp.taxes.gov.il/srsherutAtzmi/#/ClientsLetters" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://secapp.taxes.gov.il/srsherutAtzmi/#/ClientsLetters" target="_blank" rel="noopener" style="--brand:#1F6FE0">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-file-text"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=taxes.gov.il" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">אתר חיצוני</div>
       </div>
       <h3 class="card-title">מכתבים מרשות המיסים</h3>
@@ -866,9 +885,9 @@
       <div class="card-meta">secapp.taxes.gov.il ↗</div>
     </a>
 
-    <a class="card" data-category="external" href="https://console.anthropic.com/settings/billing" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://console.anthropic.com/settings/billing" target="_blank" rel="noopener" style="--brand:#D97757">
       <div class="card-top">
-        <div class="card-icon"><svg class="filled"><use href="#i-sparkles"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=console.anthropic.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">אתר חיצוני</div>
       </div>
       <h3 class="card-title">Claude token balance</h3>
@@ -876,9 +895,9 @@
       <div class="card-meta">console.anthropic.com ↗</div>
     </a>
 
-    <a class="card" data-category="external" href="https://vercel.com/jonathan-shapiros-projects-2548c653/tiser/analytics" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://vercel.com/jonathan-shapiros-projects-2548c653/tiser/analytics" target="_blank" rel="noopener" style="--brand:#000000">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-activity"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=vercel.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">אתר חיצוני</div>
       </div>
       <h3 class="card-title">tiser vercel analytics</h3>
@@ -886,9 +905,9 @@
       <div class="card-meta">vercel.com ↗</div>
     </a>
 
-    <a class="card" data-category="external" href="https://scholar.google.com/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://scholar.google.com/" target="_blank" rel="noopener" style="--brand:#4285F4">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-globe"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=scholar.google.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">אתר חיצוני</div>
       </div>
       <h3 class="card-title">Google Scholar</h3>
@@ -896,9 +915,9 @@
       <div class="card-meta">scholar.google.com ↗</div>
     </a>
 
-    <a class="card" data-category="external" href="https://wos-journal.info" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://wos-journal.info" target="_blank" rel="noopener" style="--brand:#15353F">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-grid"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=wos-journal.info" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">אתר חיצוני</div>
       </div>
       <h3 class="card-title">Web of Science</h3>
@@ -906,9 +925,9 @@
       <div class="card-meta">wos-journal.info ↗</div>
     </a>
 
-    <a class="card" data-category="external" href="https://www.webofscience.com/wos/op/publications/summary" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://www.webofscience.com/wos/op/publications/summary" target="_blank" rel="noopener" style="--brand:#5E33BF">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-file-text"/></svg></div>
+        <div class="card-icon"><img src="https://www.google.com/s2/favicons?sz=64&domain=clarivate.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">אתר חיצוני</div>
       </div>
       <h3 class="card-title">Web of Science Publications</h3>
@@ -916,9 +935,9 @@
       <div class="card-meta">webofscience.com ↗</div>
     </a>
 
-    <a class="card" data-category="external" href="https://drum-snowy.vercel.app/midi/" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://drum-snowy.vercel.app/midi/" target="_blank" rel="noopener" style="--brand:#1B1E23">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-headphones"/></svg></div>
+        <div class="card-icon"><img src="https://icons.duckduckgo.com/ip3/drum-snowy.vercel.app.ico" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">אתר חיצוני</div>
       </div>
       <h3 class="card-title">drum beats</h3>
@@ -926,7 +945,7 @@
       <div class="card-meta">drum-snowy.vercel.app ↗</div>
     </a>
 
-    <a class="card" data-category="external" href="https://game-point-delta.vercel.app" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://game-point-delta.vercel.app" target="_blank" rel="noopener" style="--brand:#5030C5">
       <div class="card-top">
         <div class="card-icon"><svg class="filled"><use href="#i-sparkles"/></svg></div>
         <div class="card-cat-tag">אתר חיצוני</div>
@@ -936,9 +955,9 @@
       <div class="card-meta">game-point-delta.vercel.app ↗</div>
     </a>
 
-    <a class="card" data-category="external" href="https://drum-snowy.vercel.app" target="_blank" rel="noopener">
+    <a class="card brand" data-category="external" href="https://drum-snowy.vercel.app" target="_blank" rel="noopener" style="--brand:#1B1E23">
       <div class="card-top">
-        <div class="card-icon"><svg><use href="#i-activity"/></svg></div>
+        <div class="card-icon"><img src="https://icons.duckduckgo.com/ip3/drum-snowy.vercel.app.ico" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
         <div class="card-cat-tag">אתר חיצוני</div>
       </div>
       <h3 class="card-title">Drum Machine</h3>
