@@ -69,9 +69,34 @@ ul{margin:0;padding-right:22px;display:flex;flex-direction:column;gap:6px;}
 .dates .fill{min-width:0;width:100%;height:1.4em;}
 footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;}
 @media (max-width:480px){h1{font-size:1.7rem} body{font-size:16px}}
+
+/* Print button (floating, top-left in RTL) */
+.print-btn{position:fixed;top:16px;left:16px;z-index:100;width:46px;height:46px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 10px rgba(0,0,0,.18);transition:transform .15s;}
+.print-btn:hover{transform:scale(1.08);}
+.print-btn:focus-visible{outline:3px solid var(--accent-soft);outline-offset:2px;}
+.print-btn svg{width:22px;height:22px;}
+
+/* Editable fields: visible hint on hover, clear on focus */
+.fill[contenteditable="true"]{cursor:text;outline:none;padding:1px 4px;border-radius:3px;transition:background .15s;}
+.fill[contenteditable="true"]:hover{background:rgba(31,111,139,.08);}
+.fill[contenteditable="true"]:focus{background:var(--accent-soft);}
+
+/* Print styles: hide the button and the edit affordances */
+@media print{
+  .print-btn{display:none !important;}
+  .fill[contenteditable]{background:transparent !important;}
+  .wrap{padding-block:0;}
+}
 </style>
 
 <div class="wrap">
+<button class="print-btn" onclick="window.print()" aria-label="הדפס מסמך" title="הדפס">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <polyline points="6 9 6 2 18 2 18 9"/>
+    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+    <rect x="6" y="14" width="12" height="8"/>
+  </svg>
+</button>
 <header>
   <div class="eyebrow">דף מידע למטופל</div>
   <h1>בדיקת מטלית (Patch Test) לאבחון אלרגיה במגע</h1>
@@ -250,17 +275,17 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);paddin
   </ul>
   <p>במקרה כזה ייתכן שנבקש להסיר מיד את המדבקה המסוימת. חשוב לסמן היטב את מקומה לפני ההסרה.</p>
   <div class="contact">
-    <span>טלפון המרפאה: <span class="fill"></span></span>
-    <span>דוא"ל: <span class="fill"></span></span>
+    <span>טלפון המרפאה: <span class="fill" contenteditable="true"></span></span>
+    <span>דוא"ל: <span class="fill" contenteditable="true"></span></span>
   </div>
 </div>
 
 <section>
   <h2>התורים שלך</h2>
   <div class="dates">
-    <div><b>ביקור 1: הדבקה</b><span class="fill"></span></div>
-    <div><b>ביקור 2: קריאה ראשונה (48 ש')</b><span class="fill"></span></div>
-    <div><b>ביקור 3: קריאה שנייה (72 ש')</b><span class="fill"></span></div>
+    <div><b>ביקור 1: הדבקה</b><span class="fill" contenteditable="true"></span></div>
+    <div><b>ביקור 2: קריאה ראשונה (48 ש')</b><span class="fill" contenteditable="true"></span></div>
+    <div><b>ביקור 3: קריאה שנייה (72 ש')</b><span class="fill" contenteditable="true"></span></div>
   </div>
   <p style="margin-top:10px;color:var(--muted)">שלושת הביקורים הם חלק מבדיקה אחת. אם אינך יכול להגיע לאחד מהם, יש לדחות את כל הבדיקה למועד אחר.</p>
 </section>
