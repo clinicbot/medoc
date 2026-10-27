@@ -1,0 +1,279 @@
+<title>הנחיות לבדיקת מטלית (Patch Test)</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&display=swap">
+<style>
+/* Layout: single reading column, RTL; a clinic leaflet with a step timeline and two diagrams */
+:root{
+  --bg:#fbf9f5;
+  --fg:#23211c;
+  --muted:#6b665b;
+  --line:#e2ddd3;
+  --card:#ffffff;
+  --accent:#1f6f8b;
+  --accent-soft:#e4eff3;
+  --warn:#b4472e;
+  --warn-soft:#fbe9e3;
+  --skin:#f1cfb4;
+  --skin-dark:#d9ad8c;
+  --patch:#f7f3ea;
+  --patch-edge:#cdbf9f;
+  --display:"Frank Ruhl Libre","Times New Roman",serif;
+  --body:"Assistant","Arial Hebrew","Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1b1a17;--fg:#ece8df;--muted:#a8a295;--line:#3a3731;--card:#24221e;
+    --accent:#7fbdd4;--accent-soft:#1f3038;--warn:#e8876c;--warn-soft:#3a241d;
+    --skin:#c9a384;--skin-dark:#a7805f;--patch:#e9e2d2;--patch-edge:#b3a582;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1b1a17;--fg:#ece8df;--muted:#a8a295;--line:#3a3731;--card:#24221e;
+  --accent:#7fbdd4;--accent-soft:#1f3038;--warn:#e8876c;--warn-soft:#3a241d;
+  --skin:#c9a384;--skin-dark:#a7805f;--patch:#e9e2d2;--patch-edge:#b3a582;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;direction:rtl;text-align:right;}
+.wrap{max-width:720px;margin:0 auto;padding-block:32px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:36px;}
+header{border-bottom:2px solid var(--accent);padding-bottom:18px;}
+.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700;}
+h1{font-family:var(--display);font-weight:700;font-size:2.1rem;line-height:1.2;margin:6px 0 10px;text-wrap:balance;}
+h2{font-family:var(--display);font-weight:700;font-size:1.45rem;margin:0 0 12px;text-wrap:balance;}
+p{margin:0 0 12px;}
+.lead{font-size:1.1rem;color:var(--muted);}
+section{display:flex;flex-direction:column;gap:6px;}
+figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;}
+figure svg{display:block;width:100%;height:auto;max-width:100%;}
+figcaption{font-size:14px;color:var(--muted);margin-top:8px;}
+.steps{display:flex;flex-direction:column;gap:14px;margin:4px 0;}
+.step{display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:start;}
+.step .n{width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--display);font-weight:700;font-size:1.2rem;display:grid;place-items:center;}
+.step h3{margin:4px 0 2px;font-size:1.05rem;font-weight:700;}
+.step p{margin:0;color:var(--muted);}
+.step .when{font-size:13px;font-weight:600;color:var(--accent);}
+ul{margin:0;padding-right:22px;display:flex;flex-direction:column;gap:6px;}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+.rule{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+.rule strong{display:block;margin-bottom:4px;}
+.rule.no strong{color:var(--warn);}
+.rule.yes strong{color:var(--accent);}
+.alert{background:var(--warn-soft);border-right:5px solid var(--warn);border-radius:8px;padding:14px 16px;}
+.alert h2{color:var(--warn);font-size:1.25rem;margin-bottom:6px;}
+.contact{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px 18px;font-weight:600;}
+.contact span{white-space:nowrap;}
+.fill{display:inline-block;min-width:150px;border-bottom:1px solid var(--muted);}
+.dates{background:var(--accent-soft);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
+.dates div{display:flex;flex-direction:column;gap:2px;}
+.dates b{font-size:14px;color:var(--accent);}
+.dates .fill{min-width:0;width:100%;height:1.4em;}
+footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;}
+@media (max-width:480px){h1{font-size:1.7rem} body{font-size:16px}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">דף מידע למטופל</div>
+  <h1>בדיקת מטלית (Patch Test) לאבחון אלרגיה במגע</h1>
+  <p class="lead">הבדיקה בודקת אם העור שלך רגיש לחומרים שנמצאים במוצרים יומיומיים: מתכות, בשמים, חומרים משמרים, גומי, צבעים ועוד. הבדיקה נמשכת 72 שעות וכוללת שלושה ביקורים במרפאה.</p>
+</header>
+
+<section>
+  <h2>איך הבדיקה מתבצעת</h2>
+  <p>במרפאה מדביקים על הגב העליון מדבקות ממוספרות. בכל מדבקה יש תאים קטנים, ובכל תא כמות זעירה של חומר אחד. המדבקות נשארות צמודות לעור במשך 48 שעות. אם העור רגיש לחומר מסוים, מופיעה באותו תא תגובה מקומית: אדמומיות, נפיחות או שלפוחיות קטנות. הרופא קורא את התוצאה לפי מספר התא.</p>
+  <figure>
+    <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="איור של גב עם שתי שורות מדבקות ממוספרות">
+      <!-- shoulders and back -->
+      <path d="M90 90 C150 40 220 20 320 20 C420 20 490 40 550 90 L560 400 L80 400 Z" fill="var(--skin)" stroke="var(--skin-dark)" stroke-width="3"/>
+      <path d="M250 22 C260 60 380 60 390 22" fill="none" stroke="var(--skin-dark)" stroke-width="3"/>
+      <line x1="320" y1="70" x2="320" y2="390" stroke="var(--skin-dark)" stroke-width="2" stroke-dasharray="6 8"/>
+      <!-- patch strips: 3 strips, each 2 columns x 5 rows -->
+      <g id="strips">
+        <!-- strip 1 -->
+        <rect x="138" y="100" width="92" height="245" rx="8" fill="var(--patch)" stroke="var(--patch-edge)" stroke-width="2"/>
+        <!-- strip 2 -->
+        <rect x="274" y="100" width="92" height="245" rx="8" fill="var(--patch)" stroke="var(--patch-edge)" stroke-width="2"/>
+        <!-- strip 3 -->
+        <rect x="410" y="100" width="92" height="245" rx="8" fill="var(--patch)" stroke="var(--patch-edge)" stroke-width="2"/>
+      </g>
+      <g font-family="Assistant,Arial,sans-serif" font-size="13" fill="#4a4336" text-anchor="middle">
+        <!-- strip 1 cells -->
+        <g>
+          <rect x="150" y="112" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="165" y="132">1</text>
+          <rect x="188" y="112" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="203" y="132">2</text>
+          <rect x="150" y="158" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="165" y="178">3</text>
+          <rect x="188" y="158" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="203" y="178">4</text>
+          <rect x="150" y="204" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="165" y="224">5</text>
+          <rect x="188" y="204" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="203" y="224">6</text>
+          <rect x="150" y="250" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="165" y="270">7</text>
+          <rect x="188" y="250" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="203" y="270">8</text>
+          <rect x="150" y="296" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="165" y="316">9</text>
+          <rect x="188" y="296" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="203" y="316">10</text>
+        </g>
+        <!-- strip 2 cells -->
+        <g>
+          <rect x="286" y="112" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="301" y="132">11</text>
+          <rect x="324" y="112" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="339" y="132">12</text>
+          <rect x="286" y="158" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="301" y="178">13</text>
+          <rect x="324" y="158" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="339" y="178">14</text>
+          <rect x="286" y="204" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="301" y="224">15</text>
+          <rect x="324" y="204" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="339" y="224">16</text>
+          <rect x="286" y="250" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="301" y="270">17</text>
+          <rect x="324" y="250" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="339" y="270">18</text>
+          <rect x="286" y="296" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="301" y="316">19</text>
+          <rect x="324" y="296" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="339" y="316">20</text>
+        </g>
+        <!-- strip 3 cells -->
+        <g>
+          <rect x="422" y="112" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="437" y="132">21</text>
+          <rect x="460" y="112" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="475" y="132">22</text>
+          <rect x="422" y="158" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="437" y="178">23</text>
+          <rect x="460" y="158" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="475" y="178">24</text>
+          <rect x="422" y="204" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="437" y="224">25</text>
+          <rect x="460" y="204" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="475" y="224">26</text>
+          <rect x="422" y="250" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="437" y="270">27</text>
+          <rect x="460" y="250" width="30" height="30" rx="15" fill="var(--warn)" fill-opacity=".55" stroke="var(--warn)" stroke-width="2"/><text x="475" y="270" fill="#fff" font-weight="700">28</text>
+          <rect x="422" y="296" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="437" y="316">29</text>
+          <rect x="460" y="296" width="30" height="30" rx="15" fill="#f5e1d2" stroke="var(--patch-edge)"/><text x="475" y="316">30</text>
+        </g>
+      </g>
+      <!-- marker lines next to strips -->
+      <g stroke="var(--accent)" stroke-width="3" stroke-linecap="round">
+        <line x1="124" y1="106" x2="124" y2="118"/><line x1="124" y1="330" x2="124" y2="342"/>
+        <line x1="260" y1="106" x2="260" y2="118"/><line x1="260" y1="330" x2="260" y2="342"/>
+        <line x1="396" y1="106" x2="396" y2="118"/><line x1="396" y1="330" x2="396" y2="342"/>
+      </g>
+      <!-- callout -->
+      <line x1="492" y1="265" x2="560" y2="230" stroke="var(--warn)" stroke-width="2"/>
+      <text x="560" y="222" font-family="Assistant,Arial,sans-serif" font-size="14" fill="var(--fg)" text-anchor="middle">תגובה חיובית</text>
+      <text x="320" y="392" font-family="Assistant,Arial,sans-serif" font-size="14" fill="var(--muted)" text-anchor="middle">הגב העליון, בין השכמות</text>
+    </svg>
+    <figcaption>המדבקות מודבקות על הגב העליון ומסומנות בעט סימון עמיד, כדי שאפשר יהיה לזהות את מיקום כל תא גם אחרי הסרתן. התא האדום באיור מדגים איך נראית תגובה חיובית.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>שלושת הביקורים</h2>
+  <figure>
+    <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ציר זמן של 72 שעות ושלושה ביקורים">
+      <line x1="60" y1="70" x2="580" y2="70" stroke="var(--line)" stroke-width="6" stroke-linecap="round"/>
+      <line x1="60" y1="70" x2="580" y2="70" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="520" />
+      <g font-family="Assistant,Arial,sans-serif" text-anchor="middle">
+        <!-- day 1 (rightmost in RTL) -->
+        <circle cx="560" cy="70" r="18" fill="var(--accent)"/>
+        <text x="560" y="75" font-size="15" font-weight="700" fill="#fff">1</text>
+        <text x="560" y="30" font-size="15" font-weight="700" fill="var(--fg)">יום 1</text>
+        <text x="560" y="112" font-size="14" fill="var(--fg)">הדבקת המדבקות</text>
+        <text x="560" y="132" font-size="13" fill="var(--muted)">שעה 0</text>
+        <!-- day 2 -->
+        <circle cx="400" cy="70" r="9" fill="var(--bg)" stroke="var(--accent)" stroke-width="3"/>
+        <text x="400" y="30" font-size="15" font-weight="700" fill="var(--muted)">יום 2</text>
+        <text x="400" y="112" font-size="14" fill="var(--muted)">המדבקות על הגב</text>
+        <text x="400" y="132" font-size="13" fill="var(--muted)">24 שעות</text>
+        <!-- day 3 -->
+        <circle cx="240" cy="70" r="18" fill="var(--accent)"/>
+        <text x="240" y="75" font-size="15" font-weight="700" fill="#fff">2</text>
+        <text x="240" y="30" font-size="15" font-weight="700" fill="var(--fg)">יום 3</text>
+        <text x="240" y="112" font-size="14" fill="var(--fg)">הסרה וקריאה ראשונה</text>
+        <text x="240" y="132" font-size="13" fill="var(--muted)">48 שעות</text>
+        <!-- day 4 -->
+        <circle cx="80" cy="70" r="18" fill="var(--accent)"/>
+        <text x="80" y="75" font-size="15" font-weight="700" fill="#fff">3</text>
+        <text x="80" y="30" font-size="15" font-weight="700" fill="var(--fg)">72 שעות</text>
+        <text x="80" y="112" font-size="14" fill="var(--fg)">קריאה שנייה וסיכום</text>
+        <text x="80" y="132" font-size="13" fill="var(--muted)">יום אחרי הקריאה הראשונה</text>
+      </g>
+      <text x="320" y="160" font-family="Assistant,Arial,sans-serif" font-size="13" fill="var(--warn)" text-anchor="middle" font-weight="600">ללא מקלחת ובלי להרטיב את הגב לאורך כל התקופה, עד סיום הקריאה השנייה</text>
+    </svg>
+  </figure>
+
+  <div class="steps">
+    <div class="step">
+      <div class="n">1</div>
+      <div>
+        <div class="when">ביקור ראשון, יום 1</div>
+        <h3>הדבקת המדבקות</h3>
+        <p>מגיעים למרפאה אחרי מקלחת, עם גב נקי, יבש ומגולח. מדביקים את המדבקות על הגב העליון ומסמנים את מיקומן. הביקור נמשך כ-15 עד 20 דקות.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div>
+        <div class="when">ביקור שני, יום 3 (48 שעות)</div>
+        <h3>הסרת המדבקות וקריאה ראשונה</h3>
+        <p>מסירים את המדבקות במרפאה, ממתינים כחצי שעה עד שסימני הלחץ נעלמים, ואז הרופא קורא את התוצאות ומחזק את הסימון על הגב.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div>
+        <div class="when">ביקור שלישי, 72 שעות מההדבקה</div>
+        <h3>קריאה שנייה וסיכום</h3>
+        <p>תגובות אלרגיות רבות מופיעות או מתחזקות רק אחרי 72 שעות, ולכן הקריאה הזו חשובה לא פחות מהראשונה. בסיום הרופא מסביר את התוצאות ומוסר רשימה של החומרים שיש להימנע מהם.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>לפני הבדיקה</h2>
+  <ul>
+    <li>להתקלח בבוקר הבדיקה. זו המקלחת האחרונה עד סיום הקריאה השנייה.</li>
+    <li>לגלח את שיער הגב יום או יומיים לפני הבדיקה, כדי שהמדבקות יידבקו היטב לעור. לא לגלח בבוקר הבדיקה עצמו, כדי למנוע גירוי.</li>
+    <li>לא למרוח קרם, שמן או תכשיר כלשהו על הגב בבוקר הבדיקה.</li>
+    <li>להודיע לרופא על תרופות שאתם נוטלים, במיוחד סטרואידים (כדורים, זריקות או משחות על הגב) ותרופות המדכאות את מערכת החיסון. הן עלולות לדכא את התגובה ולפגוע בתוצאה.</li>
+    <li>לא לחשוף את הגב לשמש או לסולריום בשבועיים שלפני הבדיקה.</li>
+    <li>להגיע עם חולצה רחבה ונוחה, רצוי כהה וישנה. סימון העט עלול להכתים בגדים.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>במהלך 72 שעות הבדיקה</h2>
+  <div class="rules">
+    <div class="rule no"><strong>אסור להתקלח</strong>מהרגע שהמדבקות הודבקו ועד סיום הקריאה השנייה (72 שעות). מים מרפים את המדבקות ושוטפים את הסימון. מותר לרחוץ פנים, ידיים ואזורים שאינם הגב, בזהירות ובלי להרטיב אותו.</div>
+    <div class="rule no"><strong>אסור להזיע</strong>להימנע מספורט, ריצה, סאונה ובריכה. זיעה פוגעת בהדבקה ועלולה לטשטש את התוצאה.</div>
+    <div class="rule no"><strong>לא לגרד ולא להזיז</strong>לא לגרד את הגב, לא להרים את המדבקות כדי להציץ ולא לשאת תיק גב כבד.</div>
+    <div class="rule no"><strong>בלי שמש על הגב</strong>לא לחשוף את הגב לשמש עד סיום הבדיקה, וגם בשבוע שאחריה, כדי לא להפריע לקריאה ולסימון.</div>
+    <div class="rule yes"><strong>אם מדבקה מתרופפת</strong>להצמיד אותה בעדינות עם פלסטר או נייר דבק רפואי מעל הקצה, בלי להזיז אותה ממקומה, ולעדכן אותנו.</div>
+    <div class="rule yes"><strong>אפשר לישון רגיל</strong>רצוי לישון בחולצה ישנה. גירוד קל או תחושת מתיחה מתחת למדבקות הם נורמליים.</div>
+  </div>
+</section>
+
+<div class="alert">
+  <h2>מתי ליצור קשר מיד</h2>
+  <p>אם במהלך הימים האלה מופיעה תגובה חזקה, יש ליצור איתנו קשר מיד ולא להמתין לתור הבא:</p>
+  <ul>
+    <li>צריבה, כאב או גירוד חזק שלא נסבל מתחת למדבקות</li>
+    <li>אדמומיות או נפיחות שמתפשטות מעבר לגבולות המדבקה</li>
+    <li>שלפוחיות, הפרשה או הרגשה של שריפה בעור</li>
+    <li>פריחה באזורים אחרים בגוף, קוצר נשימה, או כל הרגשה כללית לא טובה</li>
+  </ul>
+  <p>במקרה כזה ייתכן שנבקש להסיר מיד את המדבקה המסוימת. חשוב לסמן היטב את מקומה לפני ההסרה.</p>
+  <div class="contact">
+    <span>טלפון המרפאה: <span class="fill"></span></span>
+    <span>דוא"ל: <span class="fill"></span></span>
+  </div>
+</div>
+
+<section>
+  <h2>התורים שלך</h2>
+  <div class="dates">
+    <div><b>ביקור 1: הדבקה</b><span class="fill"></span></div>
+    <div><b>ביקור 2: קריאה ראשונה (48 ש')</b><span class="fill"></span></div>
+    <div><b>ביקור 3: קריאה שנייה (72 ש')</b><span class="fill"></span></div>
+  </div>
+  <p style="margin-top:10px;color:var(--muted)">שלושת הביקורים הם חלק מבדיקה אחת. אם אינך יכול להגיע לאחד מהם, יש לדחות את כל הבדיקה למועד אחר.</p>
+</section>
+
+<section>
+  <h2>אחרי הבדיקה</h2>
+  <ul>
+    <li>אפשר להתקלח מיד אחרי הקריאה השנייה. סימני העט יורדים לאט במשך מספר ימים.</li>
+    <li>תגובה חיובית עלולה לגרד או להישאר אדומה כשבוע. אפשר למרוח משחה מרגיעה לפי הנחיית הרופא.</li>
+    <li>לעיתים נדירות מופיעה תגובה מאוחרת, שבוע או יותר אחרי הבדיקה, באזור אחד התאים. אם זה קורה, צלמו את האזור וצרו איתנו קשר.</li>
+    <li>שמרו את רשימת החומרים שקיבלתם. היא תעזור לכם לבדוק רכיבים במוצרי קוסמטיקה, ניקיון ועבודה.</li>
+  </ul>
+</section>
+
+<footer>דף מידע זה הוא הסבר כללי ואינו מחליף את הנחיות הרופא המטפל. בכל שאלה פנו למרפאה.</footer>
+</div>
